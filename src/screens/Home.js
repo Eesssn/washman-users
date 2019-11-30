@@ -48,7 +48,11 @@ class Home extends React.Component {
               data={images}
               keyExtractor={images.id}
               renderItem={img => {
-                return <Image source={img.item.image} style={styles.img} />;
+                return (
+                  <TouchableOpacity>
+                    <Image source={img.item.image} style={styles.img} />
+                  </TouchableOpacity>
+                );
               }}
             />
           </View>
@@ -112,11 +116,6 @@ class Home extends React.Component {
                 }}>
                 سرویس ویژه
               </Text>
-              <Entypo
-                name="chevron-small-right"
-                size={30}
-                style={styles.icon}
-              />
             </View>
           </View>
           <View style={{position: 'relative'}}>
@@ -136,11 +135,6 @@ class Home extends React.Component {
                 }}>
                 چر واش من
               </Text>
-              <Entypo
-                name="chevron-small-right"
-                size={30}
-                style={styles.icon}
-              />
             </View>
           </View>
         </View>

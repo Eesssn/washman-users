@@ -8,7 +8,6 @@ import {
   Dimensions,
 } from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const Profile = () => {
   return (
@@ -36,18 +35,21 @@ const Profile = () => {
           flexDirection: 'row-reverse',
           width: 300,
           alignItems: 'center',
-          bottom: 50,
+          bottom: 60,
+          left: 25,
         }}>
         <Text
           style={{
             fontSize: 16,
             fontFamily: 'IRANSansWeb',
             color: '#484848',
-            textAlign: 'center',
           }}>
           سارا احمدی
         </Text>
-        <Entypo name="bookmark" size={20} style={{marginRight: 20}} />
+        <Image
+          source={require('../../assets/images/bookmark.png')}
+          style={{marginRight: 20, width: 20, height: 20}}
+        />
       </View>
 
       <View>
@@ -58,7 +60,7 @@ const Profile = () => {
               {borderBottomWidth: 1, borderBottomColor: '#C3C3C3'},
             ]}>
             <Text style={styles.txt}>افزایش اعتبار کیف پول</Text>
-            <View style={styles.viewP}>
+            <TouchableOpacity style={styles.viewP}>
               <Text style={styles.txtP}>اعتبار 0 تومان</Text>
               <TouchableOpacity
                 style={{
@@ -73,7 +75,7 @@ const Profile = () => {
                 }}>
                 <Entypo name="plus" size={10} />
               </TouchableOpacity>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
         <TouchableOpacity
@@ -150,7 +152,10 @@ Profile.navigationOptions = ({navigation}) => {
     },
     headerRight: (
       <TouchableOpacity onPress={() => navigation.navigate('Setting')}>
-        <AntDesign name="setting" size={25} style={styles.iconHeader} />
+        <Image
+          source={require('../../assets/images/setting.png')}
+          style={styles.iconHeader}
+        />
       </TouchableOpacity>
     ),
   };
@@ -205,12 +210,13 @@ const styles = StyleSheet.create({
     width: 110,
     height: 110,
     borderRadius: 40,
-    marginLeft: 40,
+    marginLeft: 50,
     marginTop: 10,
   },
   iconHeader: {
-    color: 'white',
     marginRight: 20,
+    width: 25,
+    height: 25,
   },
   txtLuck: {
     fontSize: 16,

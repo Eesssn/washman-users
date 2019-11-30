@@ -8,14 +8,14 @@ import {
   Dimensions,
 } from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
-const getCurrentPosition = () => {
-  return new Promise((resolve, rejects) => {
-    navigator.geolocation.getCurrentPosition(
-      position => resolve(position),
-      e => rejects(e),
-    );
-  });
-};
+// const getCurrentPosition = () => {
+//   return new Promise((resolve, rejects) => {
+//     navigator.geolocation.getCurrentPosition(
+//       position => resolve(position),
+//       e => rejects(e),
+//     );
+//   });
+// };
 class ReserveWash extends Component {
   constructor() {
     super();
@@ -24,18 +24,18 @@ class ReserveWash extends Component {
     };
   }
 
-  componentDidMount() {
-    return getCurrentPosition().then(position => {
-      console.log(position);
-      if (position) {
-        this.setState({
-          region: position.coords,
-        });
-      } else {
-        console.log('error in map');
-      }
-    });
-  }
+  // componentDidMount() {
+  //   return getCurrentPosition().then(position => {
+  //     console.log(position);
+  //     if (position) {
+  //       this.setState({
+  //         region: position.coords,
+  //       });
+  //     } else {
+  //       console.log('error in map');
+  //     }
+  //   });
+  // }
   render() {
     return (
       <View style={{flex: 1, position: 'relative'}}>

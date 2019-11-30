@@ -9,7 +9,7 @@ import StackSupport from '../stackNavigation/StackSupport';
 import StackBlog from '../stackNavigation/StackBlog';
 import StackReserveWash from '../stackNavigation/StackReserveWash';
 import StackProfile from '../stackNavigation/StackProfile';
-import Feather from 'react-native-vector-icons/Feather';
+import StackBottom from '../stackBottomTab';
 
 const NavigatorTab = createSwitchNavigator({
   get: createStackNavigator(Screens, {
@@ -17,26 +17,27 @@ const NavigatorTab = createSwitchNavigator({
   }),
   tabs: createBottomTabNavigator(
     {
-      Support: createStackNavigator(StackSupport, {
+      Profile: createStackNavigator(StackProfile, {
         navigationOptions: {
           tabBarIcon: ({tintColor}) => (
             <Image
-              source={require('../../assets/images/telemarketer.png')}
+              source={require('../../assets/images/user.png')}
               size={30}
-              color="#900"
               style={styles.icon}
+              tintColor={tintColor}
             />
           ),
         },
       }),
+
       Blog: createStackNavigator(StackBlog, {
         navigationOptions: {
           tabBarIcon: ({tintColor}) => (
             <Image
               source={require('../../assets/images/write-letter.png')}
               size={30}
-              color="#900"
               style={styles.icon}
+              tintColor={tintColor}
             />
           ),
         },
@@ -47,20 +48,20 @@ const NavigatorTab = createSwitchNavigator({
             <Image
               source={require('../../assets/images/stopwatch.png')}
               size={30}
-              color="#900"
               style={styles.icon}
+              tintColor={tintColor}
             />
           ),
         },
       }),
-      Profile: createStackNavigator(StackProfile, {
+      Support: createStackNavigator(StackSupport, {
         navigationOptions: {
           tabBarIcon: ({tintColor}) => (
             <Image
-              source={require('../../assets/images/user.png')}
+              source={require('../../assets/images/telemarketer.png')}
               size={30}
-              color="#900"
               style={styles.icon}
+              tintColor={tintColor}
             />
           ),
         },
@@ -68,12 +69,12 @@ const NavigatorTab = createSwitchNavigator({
       Home: createStackNavigator(SHome, {
         initialRouteName: 'Home',
         navigationOptions: {
-          tabBarIcon: ({tintColor}) => (
+          tabBarIcon: ({tintColor, focused}) => (
             <Image
               source={require('../../assets/images/home.png')}
               size={30}
-              color="#900"
               style={styles.icon}
+              tintColor={tintColor}
             />
           ),
         },
@@ -81,6 +82,24 @@ const NavigatorTab = createSwitchNavigator({
     },
     {
       initialRouteName: 'Home',
+      tabBarOptions: {
+        activeTintColor: '#3498DB',
+        showLabel: false,
+        style: {
+          borderTopLeftRadius: 30,
+          borderTopRightRadius: 30,
+          height: 60,
+          borderTopWidth: 0,
+          shadowColor: '#000',
+          shadowOffset: {
+            height: 2,
+            width: 2,
+          },
+          shadowOpacity: 0.016,
+          shadowRadius: 5,
+          elevation: 5,
+        },
+      },
     },
   ),
 });
