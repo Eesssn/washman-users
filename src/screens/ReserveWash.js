@@ -48,9 +48,12 @@ class ReserveWash extends Component {
             longitude: 51.367769,
             latitudeDelta: 0.0511,
             longitudeDelta: 0.0511,
-          }}
-        />
-        <TouchableOpacity style={styles.btn}>
+          }}>
+          <Marker coordinate={{latitude: 35.731993, longitude: 51.367769}} />
+        </MapView>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => this.props.navigation.navigate('ConfrimReserveWash')}>
           <Text style={styles.txtBtn}>تایید محل</Text>
         </TouchableOpacity>
       </View>

@@ -9,7 +9,7 @@ import {
   ScrollView,
   Dimensions,
 } from 'react-native';
-import Entypo from 'react-native-vector-icons/Entypo';
+
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
 class Home extends React.Component {

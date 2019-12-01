@@ -8,8 +8,15 @@ import {
   Dimensions,
   StyleSheet,
 } from 'react-native';
+import StarRating from 'react-native-star-rating';
 
 class Blog extends React.Component {
+  onStarRatingPress(rating) {
+    this.setState({
+      StarRating: rating,
+    });
+  }
+
   tabView = () => {
     switch (this.state.discription) {
       case 'lastSubject':
@@ -235,7 +242,27 @@ class Blog extends React.Component {
                 خیلی خیلی راضی هستم.حتما پیشنهاد میکنم ازشون استفاده کنید. تیمی
                 حرفه ای و مجرب
               </Text>
-              <Text>روشویی-سواری</Text>
+
+              <View
+                style={{
+                  width: width / 2,
+                  flexDirection: 'row-reverse',
+                  justifyContent: 'space-between',
+                }}>
+                <Text>روشویی-سواری</Text>
+                <StarRating
+                  disabled={false}
+                  emptyStar={'ios-star-outline'}
+                  fullStar={'ios-star'}
+                  halfStar={'ios-star-half'}
+                  iconSet={'Ionicons'}
+                  maxStars={5}
+                  rating={this.state.StarRating}
+                  selectedStar={rating => this.onStarRatingPress(rating)}
+                  fullStarColor={'#FAC917'}
+                  starSize={20}
+                />
+              </View>
             </View>
 
             <View style={styles.viewComment}>
@@ -275,6 +302,7 @@ class Blog extends React.Component {
     this.state = {
       discription: 'lastSubject',
       underLine: null,
+      rateChanged: 2,
     };
   }
   render() {
@@ -283,33 +311,42 @@ class Blog extends React.Component {
         <View style={styles.tab}>
           <View>
             <TouchableOpacity
+              style={{justifyContent: 'center', alignItems: 'center'}}
               onPress={() => this.setState({discription: 'lastSubject'})}>
-              <View
-                style={
-                  this.state.discription === 'lastSubject' ? styles.btn : null
-                }
-              />
               <Text style={styles.txt}>آخرین مطلب</Text>
-            </TouchableOpacity>
-          </View>
-          <View>
-            <TouchableOpacity
-              onPress={() => this.setState({discription: 'best'})}>
-              <View
-                style={this.state.discription === 'best' ? styles.btn : null}
-              />
-              <Text style={styles.txt}>بهترینها</Text>
-            </TouchableOpacity>
-          </View>
-          <View>
-            <TouchableOpacity
-              onPress={() => this.setState({discription: 'yourComment'})}>
               <View
                 style={
-                  this.state.discription === 'yourComment' ? styles.btn : null
+                  this.state.discription === 'lastSubject'
+                    ? styles.underline
+                    : null
                 }
               />
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity
+              style={{justifyContent: 'center', alignItems: 'center'}}
+              onPress={() => this.setState({discription: 'best'})}>
+              <Text style={styles.txt}>بهترینها</Text>
+              <View
+                style={
+                  this.state.discription === 'best' ? styles.underline : null
+                }
+              />
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity
+              style={{justifyContent: 'center', alignItems: 'center'}}
+              onPress={() => this.setState({discription: 'yourComment'})}>
               <Text style={styles.txt}>نظرات شما</Text>
+              <View
+                style={
+                  this.state.discription === 'yourComment'
+                    ? styles.underline
+                    : null
+                }
+              />
             </TouchableOpacity>
           </View>
         </View>
@@ -362,10 +399,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
     paddingVertical: 20,
   },
-  btn: {
+  underline: {
     borderBottomWidth: 3,
     borderBottomColor: '#FED03F',
-    alignSelf:'flex-start'
+    marginTop: 12,
+    width: 70,
   },
   txt: {
     fontSize: 18,

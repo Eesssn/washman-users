@@ -6,3 +6,10 @@ const App = () => {
 };
 
 export default App;
+
+// import React from 'react';
+// import Temp from './temp';
+// const App = () => {
+//   return <Temp />;
+// };
+// export default App;

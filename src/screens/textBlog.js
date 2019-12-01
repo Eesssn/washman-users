@@ -15,7 +15,7 @@ class TextBlog extends React.Component {
   };
   render() {
     return (
-      <ScrollView>
+      <ScrollView style={{backgroundColor: '#FCFAFA'}}>
         <Image
           source={require('../../assets/images/Blog1.png')}
           style={styles.img}
@@ -28,6 +28,7 @@ class TextBlog extends React.Component {
             justifyContent: 'space-between',
             paddingVertical: 17,
             alignItems: 'center',
+            backgroundColor: 'white',
           }}>
           <Text style={styles.title}>چرا واش من؟</Text>
           <View style={{flexDirection: 'row-reverse', paddingRight: 20}}>
@@ -47,7 +48,6 @@ class TextBlog extends React.Component {
         </View>
         <View
           style={{
-            backgroundColor: '#FCFAFA',
             paddingHorizontal: 20,
             paddingVertical: 10,
           }}>
