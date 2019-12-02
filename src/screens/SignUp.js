@@ -9,8 +9,6 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-
 class SignUp extends React.Component {
   static navigationOptions = {
     headerStyle: {
@@ -25,7 +23,7 @@ class SignUp extends React.Component {
     title: 'ثبت نام',
     headerTitleStyle: {
       fontWeight: 'bold',
-      fontFamily: 'IRANSansFaNum_Light',
+      fontFamily: 'IRANSansWeb',
     },
   };
   constructor() {
@@ -74,14 +72,14 @@ class SignUp extends React.Component {
                 keyboardType="numeric"
                 maxLength={12}
               />
-              <SimpleLineIcons
-                name="user"
-                size={25}
+              <Image
+                source={require('../../assets/images/user.png')}
                 style={{
                   position: 'absolute',
                   top: 30,
                   right: 10,
-                  color: '#a7a9ac',
+                  width: 25,
+                  height: 25,
                 }}
               />
               <Text style={this.state.TextChanger}>شماره موبایل</Text>
@@ -95,14 +93,14 @@ class SignUp extends React.Component {
                 placeholderTextColor="#858585"
                 secureTextEntry={true}
               />
-              <SimpleLineIcons
-                name="lock"
-                size={25}
+              <Image
+                source={require('../../assets/images/locked.png')}
                 style={{
                   position: 'absolute',
                   top: 30,
                   right: 10,
-                  color: '#a7a9ac',
+                  width: 25,
+                  height: 25,
                 }}
               />
             </View>
@@ -115,14 +113,14 @@ class SignUp extends React.Component {
                 placeholderTextColor="#858585"
                 secureTextEntry={true}
               />
-              <SimpleLineIcons
-                name="lock"
-                size={25}
+              <Image
+                source={require('../../assets/images/locked.png')}
                 style={{
                   position: 'absolute',
                   top: 30,
                   right: 10,
-                  color: '#a7a9ac',
+                  width: 25,
+                  height: 25,
                 }}
               />
             </View>

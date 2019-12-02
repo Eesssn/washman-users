@@ -9,9 +9,6 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
 class ConfrimCode extends React.Component {
   static navigationOptions = {
     headerStyle: {
@@ -26,7 +23,7 @@ class ConfrimCode extends React.Component {
     title: 'کد فعال سازی',
     headerTitleStyle: {
       fontWeight: 'bold',
-      fontFamily: 'IRANSansFaNum_Light',
+      fontFamily: 'IRANSansWeb',
     },
   };
 
@@ -56,14 +53,14 @@ class ConfrimCode extends React.Component {
                 placeholder={'نام و نام خانوادگی'}
                 placeholderTextColor="#858585"
               />
-              <SimpleLineIcons
-                name="user"
-                size={25}
+              <Image
+                source={require('../../assets/images/user.png')}
                 style={{
                   position: 'absolute',
                   top: 30,
                   right: 10,
-                  color: '#a7a9ac',
+                  width: 25,
+                  height: 25,
                 }}
               />
             </View>
@@ -76,14 +73,14 @@ class ConfrimCode extends React.Component {
                 placeholderTextColor="#858585"
                 keyboardType="numeric"
               />
-              <MaterialIcons
-                name="star"
-                size={25}
+              <Image
+                source={require('../../assets/images/star.png')}
                 style={{
                   position: 'absolute',
                   top: 30,
                   right: 10,
-                  color: '#FAC917',
+                  width: 25,
+                  height: 25,
                 }}
               />
             </View>

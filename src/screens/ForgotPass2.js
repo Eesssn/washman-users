@@ -23,7 +23,7 @@ class ForgotPass2 extends React.Component {
     title: 'فراموشی رمز',
     headerTitleStyle: {
       fontWeight: 'bold',
-      fontFamily: 'IRANSansFaNum_Light',
+      fontFamily: 'IRANSansWeb',
     },
   };
 

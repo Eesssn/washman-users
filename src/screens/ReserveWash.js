@@ -39,7 +39,7 @@ class ReserveWash extends Component {
   render() {
     return (
       <View style={{flex: 1, position: 'relative'}}>
-        <View style={styles.tab}></View>
+        {/* <View style={styles.tab}></View> */}
         <MapView
           style={{flex: 1}}
           showsUserLocation={true}
@@ -61,18 +61,18 @@ class ReserveWash extends Component {
   }
 }
 
-ReserveWash.navigationOptions = () => {
+ReserveWash.navigationOptions = ({navigation}) => {
   return {
     tabBarIcon: ({tintColor}) => (
       <FontAwesome name="instagram" style={{color: tintColor}} size={28} />
     ),
-    headerStyle: {
-      backgroundColor: '#3498DB',
-      borderBottomRightRadius: 25,
-      borderBottomLeftRadius: 25,
-      height: 70,
-      textAlign: 'center',
-    },
+    // headerStyle: {
+    //   backgroundColor: '#3498DB',
+    //   borderBottomRightRadius: 25,
+    //   borderBottomLeftRadius: 25,
+    //   height: 70,
+    //   textAlign: 'center',
+    // },
     headerTintColor: 'white',
     headerLeft: null,
     title: 'رزرو کارواش',
@@ -80,14 +80,121 @@ ReserveWash.navigationOptions = () => {
       fontWeight: 'bold',
       fontFamily: 'FDK_aban{@fontbartar}',
     },
-    headerRight: (
-      <TouchableOpacity>
-        <Image
-          source={require('../../assets/images/bell.png')}
-          style={{width: 30, height: 30, marginRight: 20}}
-        />
-      </TouchableOpacity>
-    ),
+
+    header: ({navigation}) => {
+      return (
+        <View style={styles.tab}>
+          <View
+            style={{
+              flexDirection: 'row-reverse',
+              alignItems: 'flex-end',
+              paddingVertical: 20,
+              paddingHorizontal: 20,
+              justifyContent: 'center',
+            }}>
+            <View>
+              <Image
+                source={require('../../assets/images/star.png')}
+                style={{
+                  width: 20,
+                  height: 20,
+                }}
+              />
+            </View>
+            <View>
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontFamily: 'IRANSansWeb',
+                  color: '#858585',
+                  marginRight: 5,
+                }}>
+                خانه
+              </Text>
+            </View>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row-reverse',
+              alignItems: 'flex-end',
+              paddingVertical: 20,
+              paddingHorizontal: 20,
+            }}>
+            <View>
+              <Image
+                source={require('../../assets/images/star.png')}
+                style={{width: 20, height: 20}}
+              />
+            </View>
+            <View>
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontFamily: 'IRANSansWeb',
+                  color: '#858585',
+                  marginRight: 5,
+                }}>
+                محل کار
+              </Text>
+            </View>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row-reverse',
+              alignItems: 'flex-end',
+              paddingVertical: 20,
+              paddingHorizontal: 20,
+            }}>
+            <TouchableOpacity>
+              <Image
+                source={require('../../assets/images/plus.png')}
+                style={{width: 15, height: 15}}
+              />
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              backgroundColor: '#3498DB',
+              borderBottomRightRadius: 25,
+              borderBottomLeftRadius: 25,
+              height: 70,
+              width,
+              textAlign: 'center',
+              position: 'absolute',
+            }}>
+            <View
+              style={{
+                flexDirection: 'row-reverse',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                paddingVertical: 20,
+                paddingHorizontal: 10,
+              }}>
+              <View>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('MyRequest')}>
+                  <Image
+                    source={require('../../assets/images/bell.png')}
+                    style={{width: 30, height: 30, marginRight: 10}}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View>
+                <Text
+                  style={{
+                    fontFamily: 'IRANSansWeb',
+                    fontWeight: 'bold',
+                    fontSize: 20,
+                    color: 'white',
+                  }}>
+                  رزرو کارواش
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      );
+    },
   };
 };
 
@@ -113,7 +220,7 @@ const styles = StyleSheet.create({
   tab: {
     flexDirection: 'row-reverse',
     backgroundColor: 'white',
-    height: 50,
+    height: 120,
     width,
     borderBottomRightRadius: 15,
     borderBottomLeftRadius: 15,
@@ -125,10 +232,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.016,
     shadowRadius: 5,
     elevation: 5,
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-    position: 'absolute',
+    position: 'relative',
   },
 });
 

@@ -8,7 +8,6 @@ import {
   Dimensions,
 } from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
-import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 class Support extends React.Component {
@@ -59,24 +58,22 @@ class Support extends React.Component {
         </View>
         <View style={{flexDirection: 'row'}}>
           <TouchableOpacity>
-            <FontAwesome
-              name="whatsapp"
-              size={50}
-              style={{color: '#858585', marginHorizontal: 10}}
+            <Image
+              source={require('../../assets/images/whatsapp.png')}
+              style={{marginHorizontal: 10, width: 50, height: 50}}
             />
           </TouchableOpacity>
           <TouchableOpacity>
-            <FontAwesome
-              name="telegram"
+            <Image
+              source={require('../../assets/images/telegram.png')}
               size={50}
-              style={{color: '#858585', marginHorizontal: 10}}
+              style={{marginHorizontal: 10, width: 50, height: 50}}
             />
           </TouchableOpacity>
           <TouchableOpacity>
-            <FontAwesome
-              name="instagram"
-              size={50}
-              style={{color: '#858585', marginHorizontal: 10}}
+            <Image
+              source={require('../../assets/images/instagram.png')}
+              style={{marginHorizontal: 10, width: 50, height: 50}}
             />
           </TouchableOpacity>
         </View>
@@ -87,9 +84,6 @@ class Support extends React.Component {
 
 Support.navigationOptions = () => {
   return {
-    tabBarIcon: ({tintColor}) => (
-      <FontAwesome name="instagram" style={{color: tintColor}} size={28} />
-    ),
     headerStyle: {
       backgroundColor: '#3498DB',
       borderBottomRightRadius: 25,
@@ -102,7 +96,7 @@ Support.navigationOptions = () => {
     title: 'پشتیبانی',
     headerTitleStyle: {
       fontWeight: 'bold',
-      fontFamily: 'FDK_aban{@fontbartar}',
+      fontFamily: 'IRANSansWeb',
     },
     headerRight: (
       <Image

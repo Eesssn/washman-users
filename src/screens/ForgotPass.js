@@ -9,8 +9,6 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-
 class ForgotPass extends React.Component {
   static navigationOptions = {
     headerStyle: {
@@ -60,14 +58,14 @@ class ForgotPass extends React.Component {
                 placeholderTextColor="#858585"
                 keyboardType="numeric"
               />
-              <SimpleLineIcons
-                name="user"
-                size={25}
+              <Image
+                source={require('../../assets/images/user.png')}
                 style={{
                   position: 'absolute',
                   top: 30,
                   right: 10,
-                  color: '#a7a9ac',
+                  width: 25,
+                  height: 25,
                 }}
               />
             </View>

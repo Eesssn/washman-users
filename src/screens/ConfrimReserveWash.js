@@ -109,7 +109,7 @@ ConfrimReserveWash.navigationOptions = () => {
     title: 'رزرو کارواش',
     headerTitleStyle: {
       fontWeight: 'bold',
-      fontFamily: 'FDK_aban{@fontbartar}',
+      fontFamily: 'IRANSansWeb',
     },
     headerRight: (
       <TouchableOpacity>

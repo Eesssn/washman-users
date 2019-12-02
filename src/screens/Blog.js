@@ -232,7 +232,7 @@ class Blog extends React.Component {
         );
       case 'yourComment':
         return (
-          <View style={{backgroundColor: '#FCFAFA'}}>
+          <View style={{backgroundColor: '#FCFAFA', alignItems: 'center'}}>
             <View style={[styles.viewComment, {marginTop: 30}]}>
               <Text style={[styles.titleComments, {color: '#02B800'}]}>
                 تیم حرفه ای واش من
@@ -274,7 +274,27 @@ class Blog extends React.Component {
                 خیلی خیلی راضی هستم.حتما پیشنهاد میکنم ازشون استفاده کنید. تیمی
                 حرفه ای و مجرب
               </Text>
-              <Text>روشویی-سواری</Text>
+
+              <View
+                style={{
+                  width: width / 2,
+                  flexDirection: 'row-reverse',
+                  justifyContent: 'space-between',
+                }}>
+                <Text>روشویی-سواری</Text>
+                <StarRating
+                  disabled={false}
+                  emptyStar={'ios-star-outline'}
+                  fullStar={'ios-star'}
+                  halfStar={'ios-star-half'}
+                  iconSet={'Ionicons'}
+                  maxStars={5}
+                  rating={this.state.StarRating}
+                  selectedStar={rating => this.onStarRatingPress(rating)}
+                  fullStarColor={'#FAC917'}
+                  starSize={20}
+                />
+              </View>
             </View>
 
             <View style={styles.viewComment}>
@@ -286,7 +306,27 @@ class Blog extends React.Component {
                 خیلی خیلی راضی هستم.حتما پیشنهاد میکنم ازشون استفاده کنید. تیمی
                 حرفه ای و مجرب
               </Text>
-              <Text>روشویی-سواری</Text>
+
+              <View
+                style={{
+                  width: width / 2,
+                  flexDirection: 'row-reverse',
+                  justifyContent: 'space-between',
+                }}>
+                <Text>روشویی-سواری</Text>
+                <StarRating
+                  disabled={false}
+                  emptyStar={'ios-star-outline'}
+                  fullStar={'ios-star'}
+                  halfStar={'ios-star-half'}
+                  iconSet={'Ionicons'}
+                  maxStars={5}
+                  rating={this.state.StarRating}
+                  selectedStar={rating => this.onStarRatingPress(rating)}
+                  fullStarColor={'#FAC917'}
+                  starSize={20}
+                />
+              </View>
             </View>
           </View>
         );
@@ -373,7 +413,7 @@ Blog.navigationOptions = () => {
     title: 'بلاگ',
     headerTitleStyle: {
       fontWeight: 'bold',
-      fontFamily: 'FDK_aban{@fontbartar}',
+      fontFamily: 'IRANSansWeb',
     },
   };
 };
@@ -389,12 +429,12 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 15,
     shadowColor: '#000',
     shadowOffset: {
-      height: 2,
-      width: 2,
+      width: 0,
+      height: 1,
     },
-    shadowOpacity: 0.016,
-    shadowRadius: 5,
-    elevation: 5,
+    shadowOpacity: 0.1,
+    shadowRadius: 1.41,
+    elevation: 2,
     justifyContent: 'space-between',
     paddingHorizontal: 40,
     paddingVertical: 20,
@@ -451,18 +491,20 @@ const styles = StyleSheet.create({
     color: '#858585',
   },
   viewComment: {
-    borderRadius: 15,
+    backgroundColor: 'white',
+    borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: {
-      height: 2,
-      width: 2,
+      width: 0,
+      height: 1,
     },
-    shadowOpacity: 0.016,
-    shadowRadius: 5,
-    elevation: 5,
+    shadowOpacity: 0.1,
+    shadowRadius: 1.41,
+    elevation: 2,
     paddingHorizontal: 20,
     paddingVertical: 10,
     marginBottom: 20,
+    width: width - 20,
   },
 });
 

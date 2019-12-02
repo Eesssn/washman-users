@@ -9,7 +9,6 @@ import {
   Dimensions,
 } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
 const {width, height} = Dimensions.get('window');
 
@@ -58,14 +57,14 @@ class GteStarted extends React.Component {
               keyboardType="numeric"
               maxLength={12}
             />
-            <SimpleLineIcons
-              name="user"
-              size={25}
+            <Image
+              source={require('../../assets/images/user.png')}
               style={{
                 position: 'absolute',
                 top: 30,
                 right: 10,
-                color: '#a7a9ac',
+                width: 25,
+                height: 25,
               }}
             />
           </View>
@@ -77,14 +76,14 @@ class GteStarted extends React.Component {
               placeholder={'رمز عبور'}
               placeholderTextColor="#858585"
             />
-            <SimpleLineIcons
-              name="lock"
-              size={25}
+            <Image
+              source={require('../../assets/images/locked.png')}
               style={{
                 position: 'absolute',
                 top: 30,
                 right: 10,
-                color: '#a7a9ac',
+                width: 25,
+                height: 25,
               }}
             />
           </View>
@@ -116,7 +115,7 @@ class GteStarted extends React.Component {
         buttonTextStyle={{
           fontSize: 22,
           color: 'gray',
-          fontFamily: 'FDK_aban{@fontbartar}',
+          fontFamily: 'IRANSansWeb',
         }}
         activeDotStyle={{backgroundColor: 'rgba(52, 152, 219, .9)'}}
         doneLabel={'شروع'}
@@ -164,7 +163,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#707070',
     paddingTop: 30,
-    fontFamily: 'FDK_aban{@fontbartar}',
+    fontFamily: 'IRANSansWeb',
   },
   text: {
     fontSize: 16,

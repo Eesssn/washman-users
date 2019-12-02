@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
-import Feather from 'react-native-vector-icons/Feather';
+
 class MyRequest extends React.Component {
   render() {
     return (
@@ -29,7 +29,9 @@ class MyRequest extends React.Component {
             <Text style={styles.date}>پنجشنبه 22 شهریور ماه</Text>
             <Text style={styles.time}>ساعت 10 الی 10:30</Text>
           </View>
-          <TouchableOpacity style={styles.btn}>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => this.props.navigation.navigate('DetailsService')}>
             <Text style={styles.txtBtn}>مشاهده جزِیات</Text>
           </TouchableOpacity>
         </View>
@@ -59,7 +61,9 @@ class MyRequest extends React.Component {
             <Text style={styles.time}>ساعت 10 الی 10:30</Text>
           </View>
 
-          <TouchableOpacity style={styles.btn}>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => this.props.navigation.navigate('DetailsService')}>
             <Text style={styles.txtBtn}>مشاهده جزِیات</Text>
           </TouchableOpacity>
         </View>
@@ -92,8 +96,10 @@ class MyRequest extends React.Component {
             <Text style={styles.time}>ساعت 10 الی 10:30</Text>
           </View>
 
-          <TouchableOpacity style={styles.btn}>
-            <Text style={styles.txtBtn}>مشاهده جزِیات</Text>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => this.props.navigation.navigate('SurveyService')}>
+            <Text style={styles.txtBtn}>مشاهده نظرسنجی</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -115,7 +121,7 @@ MyRequest.navigationOptions = ({navigation}) => {
     title: 'درخواست های من',
     headerTitleStyle: {
       fontWeight: 'bold',
-      fontFamily: 'FDK_aban{@fontbartar}',
+      fontFamily: 'IRANSansWeb',
     },
     headerRight: (
       <Image

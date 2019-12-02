@@ -89,7 +89,7 @@ Setting.navigationOptions = () => {
     title: 'تنظیمات',
     headerTitleStyle: {
       fontWeight: 'bold',
-      fontFamily: 'FDK_aban{@fontbartar}',
+      fontFamily: 'IRANSansWeb',
     },
   };
 };
@@ -101,14 +101,14 @@ const styles = StyleSheet.create({
     width,
     height: 55,
     backgroundColor: 'white',
-    shadowColor: '#000000',
+    shadowColor: '#000',
     shadowOffset: {
-      height: 2,
-      width: 2,
+      width: 0,
+      height: 1,
     },
-    shadowOpacity: 0.016,
-    shadowRadius: 5,
-    elevation: 5,
+    shadowOpacity: 0.1,
+    shadowRadius: 1.41,
+    elevation: 2,
   },
   txt: {
     fontSize: 16,

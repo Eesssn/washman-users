@@ -10,8 +10,6 @@ import {
   Dimensions,
 } from 'react-native';
 
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-
 class Home extends React.Component {
   // goToServices = data => {
   //   switch (data.id) {
@@ -101,7 +99,8 @@ class Home extends React.Component {
           </View>
 
           <View style={{position: 'relative'}}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('TextBlog')}>
               <Image
                 source={require('../../assets/images/Blog1.png')}
                 style={styles.imgBlog}
@@ -119,7 +118,8 @@ class Home extends React.Component {
             </View>
           </View>
           <View style={{position: 'relative'}}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('TextBlog')}>
               <Image
                 source={require('../../assets/images/Blog2.png')}
                 style={styles.imgBlog}
@@ -154,10 +154,9 @@ Home.navigationOptions = ({navigation}) => {
     },
     headerTintColor: 'white',
     headerLeft: null,
-    title: 'Wash Man',
+    title: 'واش من',
     headerTitleStyle: {
-      fontWeight: 'bold',
-      fontFamily: 'FDK_aban{@fontbartar}',
+      fontFamily: 'IRANSansWeb',
     },
     headerRight: (
       <TouchableOpacity onPress={() => navigation.navigate('MyRequest')}>
@@ -168,7 +167,10 @@ Home.navigationOptions = ({navigation}) => {
       </TouchableOpacity>
     ),
     tabBarIcon: ({tintColor}) => (
-      <SimpleLineIcons name="home" size={30} color={tintColor} />
+      <Image
+        source={require('../../assets/images/home.png')}
+        color={tintColor}
+      />
     ),
   };
 };
@@ -204,12 +206,12 @@ const styles = StyleSheet.create({
     minWidth: 95,
     shadowColor: '#000',
     shadowOffset: {
-      height: 2,
-      width: 2,
+      width: 0,
+      height: 1,
     },
-    shadowOpacity: 0.016,
-    shadowRadius: 5,
-    elevation: 5,
+    shadowOpacity: 0.1,
+    shadowRadius: 1.41,
+    elevation: 2,
   },
   imgBlog: {
     height: (height / 10) * 2,

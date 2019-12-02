@@ -16,9 +16,7 @@ const Profile = () => {
       <TouchableOpacity
         style={{
           position: 'absolute',
-          borderWidth: 2,
           borderRadius: 15,
-          borderColor: '#707070',
           width: 25,
           height: 25,
           alignItems: 'center',
@@ -27,7 +25,10 @@ const Profile = () => {
           left: 130,
           backgroundColor: 'white',
         }}>
-        <Entypo name="plus" size={20} style={{textAlign: 'center'}} />
+        <Image
+          source={require('../../assets/images/plus.png')}
+          style={{width: 20, height: 20}}
+        />
       </TouchableOpacity>
 
       <View
@@ -64,16 +65,17 @@ const Profile = () => {
               <Text style={styles.txtP}>اعتبار 0 تومان</Text>
               <TouchableOpacity
                 style={{
-                  borderWidth: 1,
                   borderRadius: 10,
-                  borderColor: '#707070',
                   width: 15,
                   height: 15,
                   alignItems: 'center',
                   justifyContent: 'center',
                   marginRight: 10,
                 }}>
-                <Entypo name="plus" size={10} />
+                <Image
+                  source={require('../../assets/images/plus.png')}
+                  style={{width: 20, height: 20}}
+                />
               </TouchableOpacity>
             </TouchableOpacity>
           </View>
@@ -133,9 +135,6 @@ const Profile = () => {
 
 Profile.navigationOptions = ({navigation}) => {
   return {
-    tabBarIcon: ({tintColor}) => (
-      <FontAwesome name="instagram" style={{color: tintColor}} size={28} />
-    ),
     headerStyle: {
       backgroundColor: '#3498DB',
       borderBottomRightRadius: 25,
@@ -148,7 +147,7 @@ Profile.navigationOptions = ({navigation}) => {
     title: 'پروفایل کاربری',
     headerTitleStyle: {
       fontWeight: 'bold',
-      fontFamily: 'FDK_aban{@fontbartar}',
+      fontFamily: 'IRANSansWeb',
     },
     headerRight: (
       <TouchableOpacity onPress={() => navigation.navigate('Setting')}>
@@ -168,14 +167,14 @@ const styles = StyleSheet.create({
     width,
     height: 55,
     backgroundColor: 'white',
-    shadowColor: '#000000',
+    shadowColor: '#000',
     shadowOffset: {
-      height: 2,
-      width: 2,
+      width: 0,
+      height: 1,
     },
-    shadowOpacity: 0.016,
-    shadowRadius: 5,
-    elevation: 5,
+    shadowOpacity: 0.1,
+    shadowRadius: 1.41,
+    elevation: 2,
   },
   txt: {
     fontSize: 16,

@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
-import Feather from 'react-native-vector-icons/Feather';
 
 class ServicesR extends React.Component {
   render() {
@@ -47,7 +46,7 @@ ServicesR.navigationOptions = ({navigation}) => {
     title: `${navigation.state.params.title}`,
     headerTitleStyle: {
       fontWeight: 'bold',
-      fontFamily: 'FDK_aban{@fontbartar}',
+      fontFamily: 'IRANSansWeb',
     },
     headerRight: (
       <Image
@@ -74,7 +73,7 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: 'white',
-    borderRadius: 20,
+    borderRadius: 15,
     shadowColor: '#000',
     width: 320,
     height: 420,
