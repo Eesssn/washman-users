@@ -63,16 +63,6 @@ class ReserveWash extends Component {
 
 ReserveWash.navigationOptions = ({navigation}) => {
   return {
-    tabBarIcon: ({tintColor}) => (
-      <FontAwesome name="instagram" style={{color: tintColor}} size={28} />
-    ),
-    // headerStyle: {
-    //   backgroundColor: '#3498DB',
-    //   borderBottomRightRadius: 25,
-    //   borderBottomLeftRadius: 25,
-    //   height: 70,
-    //   textAlign: 'center',
-    // },
     headerTintColor: 'white',
     headerLeft: null,
     title: 'رزرو کارواش',

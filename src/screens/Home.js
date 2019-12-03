@@ -82,7 +82,7 @@ class Home extends React.Component {
                     source={item.image}
                     style={{width: 40, height: 40, marginBottom: 10}}
                   />
-                  <Text>{item.title}</Text>
+                  <Text style={styles.titleService}>{item.title}</Text>
                   <Text style={{color: '#FFC200'}}>
                     {item.VIP === null && item.CIP === null
                       ? null
@@ -234,6 +234,11 @@ const styles = StyleSheet.create({
     bottom: 23,
     right: 2,
     color: '#858585',
+  },
+  titleService: {
+    fontFamily: 'IRANSansWeb',
+    color: '#858585',
+    fontSize: 14,
   },
 });
 const services = [

@@ -1,0 +1,36 @@
+<View
+          style={{
+            backgroundColor: '#3498DB',
+            borderBottomRightRadius: 25,
+            borderBottomLeftRadius: 25,
+            height: 70,
+            width,
+            textAlign: 'center',
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              paddingVertical: 20,
+              paddingHorizontal: 20,
+            }}>
+            <View>
+              <Text
+                style={{
+                  fontFamily: 'IRANSansWeb',
+                  fontWeight: 'bold',
+                  fontSize: 20,
+                  color: 'white',
+                }}>
+                بلاگ
+              </Text>
+            </View>
+          </View>
+        </View>
+
+
+
+        <Text style={styles.Heading} accessibilityRole="header">
+آخرین مطلب
+            </Text>

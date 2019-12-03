@@ -17,317 +17,170 @@ class Blog extends React.Component {
     });
   }
 
+  changeStatus = item => {
+    switch (item.status) {
+      case 0:
+        return [styles.titleComments, {color: '#02B800'}];
+        break;
+      case 1:
+        return [styles.titleComments, {color: 'yellow'}];
+        break;
+      default:
+        return [styles.titleComments, {color: 'red'}];
+    }
+  };
+
   tabView = () => {
     switch (this.state.discription) {
       case 'lastSubject':
         return (
           <View>
-            <TouchableOpacity
-              style={{backgroundColor: '#FCFAFA'}}
-              onPress={() => this.props.navigation.navigate('TextBlog')}>
-              <Image
-                source={require('../../assets/images/Blog1.png')}
-                style={styles.imgBlog}
-              />
-              <View
-                style={{
-                  flexDirection: 'row-reverse',
-                  justifyContent: 'flex-end',
-                }}>
-                <TouchableOpacity>
-                  <Image
-                    source={require('../../assets/images/bookmark.png')}
-                    style={styles.icon}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Image
-                    source={require('../../assets/images/share.png')}
-                    style={styles.icon}
-                  />
-                </TouchableOpacity>
-              </View>
-              <View style={{paddingHorizontal: 20}}>
-                <Text style={styles.txt}>تجربه ای حرفه ای با واش من</Text>
-                <View
-                  style={{
-                    flexDirection: 'row-reverse',
-                    alignItems: 'center',
-                    paddingTop: 5,
-                    borderBottomWidth: 1,
-                    borderBottomColor: 'rgba(112, 112, 112, 0.5)',
-                  }}>
-                  <Text style={styles.txtDate}>دهم شهریور</Text>
-                  <Text style={styles.txtLike}>250</Text>
-                  <TouchableOpacity>
-                    <Image
-                      source={require('../../assets/images/heart.png')}
+            {Last.map((lst, i) => {
+              return (
+                <TouchableOpacity
+                  key={i}
+                  style={{backgroundColor: '#FCFAFA'}}
+                  onPress={() => this.props.navigation.navigate('TextBlog')}>
+                  <Image source={lst.image} style={styles.imgBlog} />
+                  <View
+                    style={{
+                      flexDirection: 'row-reverse',
+                      justifyContent: 'flex-end',
+                    }}>
+                    <TouchableOpacity>
+                      <Image
+                        source={require('../../assets/images/bookmark.png')}
+                        style={styles.icon}
+                      />
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                      <Image
+                        source={require('../../assets/images/share.png')}
+                        style={styles.icon}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <View style={{paddingHorizontal: 20}}>
+                    <Text style={styles.txt}>{lst.title}</Text>
+                    <View
                       style={{
-                        width: 15,
-                        height: 15,
-                        marginRight: 3,
-                        marginBottom: 20,
-                      }}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity>
-              <Image
-                source={require('../../assets/images/Blog2.png')}
-                style={styles.imgBlog}
-              />
-              <View
-                style={{
-                  flexDirection: 'row-reverse',
-                  justifyContent: 'flex-end',
-                }}>
-                <TouchableOpacity>
-                  <Image
-                    source={require('../../assets/images/bookmark.png')}
-                    style={styles.icon}
-                  />
+                        flexDirection: 'row-reverse',
+                        alignItems: 'center',
+                        paddingTop: 5,
+                        borderBottomWidth: 1,
+                        borderBottomColor: 'rgba(112, 112, 112, 0.5)',
+                      }}>
+                      <Text style={styles.txtDate}>{lst.date}</Text>
+                      <Text style={styles.txtLike}>{lst.like}</Text>
+                      <TouchableOpacity>
+                        <Image
+                          source={require('../../assets/images/heart.png')}
+                          style={{
+                            width: 15,
+                            height: 15,
+                            marginRight: 3,
+                            marginBottom: 20,
+                          }}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
-                  <Image
-                    source={require('../../assets/images/share.png')}
-                    style={styles.icon}
-                  />
-                </TouchableOpacity>
-              </View>
-              <View style={{paddingHorizontal: 20}}>
-                <Text style={styles.txt}>چرا واش من</Text>
-                <View
-                  style={{
-                    flexDirection: 'row-reverse',
-                    alignItems: 'center',
-                    paddingTop: 5,
-                    borderBottomWidth: 1,
-                    borderBottomColor: 'rgba(112, 112, 112, 0.5)',
-                  }}>
-                  <Text style={styles.txtDate}>دهم شهریور</Text>
-                  <Text style={styles.txtLike}>323</Text>
-                  <TouchableOpacity>
-                    <Image
-                      source={require('../../assets/images/heart.png')}
-                      style={{
-                        width: 15,
-                        height: 15,
-                        marginRight: 3,
-                        marginBottom: 20,
-                      }}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </TouchableOpacity>
+              );
+            })}
           </View>
         );
 
       case 'best':
         return (
           <View>
-            <View style={{backgroundColor: '#FCFAFA'}}>
-              <Image
-                source={require('../../assets/images/F1.png')}
-                style={styles.imgBlog}
-              />
-              <View
-                style={{
-                  flexDirection: 'row-reverse',
-                  justifyContent: 'flex-end',
-                }}>
-                <TouchableOpacity>
-                  <Image
-                    source={require('../../assets/images/bookmark.png')}
-                    style={styles.icon}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Image
-                    source={require('../../assets/images/share.png')}
-                    style={styles.icon}
-                  />
-                </TouchableOpacity>
-              </View>
-              <View style={{paddingHorizontal: 20}}>
-                <Text style={styles.txt}>تجربه ای حرفه ای با واش من</Text>
-                <View
-                  style={{
-                    flexDirection: 'row-reverse',
-                    alignItems: 'center',
-                    paddingTop: 5,
-                    borderBottomWidth: 1,
-                    borderBottomColor: 'rgba(112, 112, 112, 0.5)',
-                  }}>
-                  <Text style={styles.txtDate}>دهم شهریور</Text>
-                  <Text style={styles.txtLike}>250</Text>
-                  <TouchableOpacity>
-                    <Image
-                      source={require('../../assets/images/heart.png')}
+            {Best.map((bst, i) => {
+              return (
+                <TouchableOpacity
+                  key={i}
+                  style={{backgroundColor: '#FCFAFA'}}
+                  onPress={() => this.props.navigation.navigate('TextBlog')}>
+                  <Image source={bst.image} style={styles.imgBlog} />
+                  <View
+                    style={{
+                      flexDirection: 'row-reverse',
+                      justifyContent: 'flex-end',
+                    }}>
+                    <TouchableOpacity>
+                      <Image
+                        source={require('../../assets/images/bookmark.png')}
+                        style={styles.icon}
+                      />
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                      <Image
+                        source={require('../../assets/images/share.png')}
+                        style={styles.icon}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <View style={{paddingHorizontal: 20}}>
+                    <Text style={styles.txt}>{bst.title}</Text>
+                    <View
                       style={{
-                        width: 15,
-                        height: 15,
-                        marginRight: 3,
-                        marginBottom: 20,
-                      }}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-
-            <View>
-              <Image
-                source={require('../../assets/images/F2.png')}
-                style={styles.imgBlog}
-              />
-              <View
-                style={{
-                  flexDirection: 'row-reverse',
-                  justifyContent: 'flex-end',
-                }}>
-                <TouchableOpacity>
-                  <Image
-                    source={require('../../assets/images/bookmark.png')}
-                    style={styles.icon}
-                  />
+                        flexDirection: 'row-reverse',
+                        alignItems: 'center',
+                        paddingTop: 5,
+                        borderBottomWidth: 1,
+                        borderBottomColor: 'rgba(112, 112, 112, 0.5)',
+                      }}>
+                      <Text style={styles.txtDate}>{bst.date}</Text>
+                      <Text style={styles.txtLike}>{bst.like}</Text>
+                      <TouchableOpacity>
+                        <Image
+                          source={require('../../assets/images/heart.png')}
+                          style={{
+                            width: 15,
+                            height: 15,
+                            marginRight: 3,
+                            marginBottom: 20,
+                          }}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
-                  <Image
-                    source={require('../../assets/images/share.png')}
-                    style={styles.icon}
-                  />
-                </TouchableOpacity>
-              </View>
-              <View style={{paddingHorizontal: 20}}>
-                <Text style={styles.txt}>چرا واش من</Text>
-                <View
-                  style={{
-                    flexDirection: 'row-reverse',
-                    alignItems: 'center',
-                    paddingTop: 5,
-                    borderBottomWidth: 1,
-                    borderBottomColor: 'rgba(112, 112, 112, 0.5)',
-                  }}>
-                  <Text style={styles.txtDate}>دهم شهریور</Text>
-                  <Text style={styles.txtLike}>323</Text>
-                  <TouchableOpacity>
-                    <Image
-                      source={require('../../assets/images/heart.png')}
-                      style={{
-                        width: 15,
-                        height: 15,
-                        marginRight: 3,
-                        marginBottom: 20,
-                      }}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
+              );
+            })}
           </View>
         );
       case 'yourComment':
         return (
           <View style={{backgroundColor: '#FCFAFA', alignItems: 'center'}}>
-            <View style={[styles.viewComment, {marginTop: 30}]}>
-              <Text style={[styles.titleComments, {color: '#02B800'}]}>
-                تیم حرفه ای واش من
-              </Text>
-              <Text style={styles.txtComments}>
-                من به تازگی با تیم واش من آشنا شدم و از خدماتی که ارائه میدن
-                خیلی خیلی راضی هستم.حتما پیشنهاد میکنم ازشون استفاده کنید. تیمی
-                حرفه ای و مجرب
-              </Text>
+            {Comments.map((item, i) => {
+              return (
+                <View key={i} style={[styles.viewComment, {marginTop: 30}]}>
+                  <Text style={this.changeStatus(item)}>{item.title}</Text>
+                  <Text style={styles.txtComments}>{item.text}</Text>
 
-              <View
-                style={{
-                  width: width / 2,
-                  flexDirection: 'row-reverse',
-                  justifyContent: 'space-between',
-                }}>
-                <Text>روشویی-سواری</Text>
-                <StarRating
-                  disabled={false}
-                  emptyStar={'ios-star-outline'}
-                  fullStar={'ios-star'}
-                  halfStar={'ios-star-half'}
-                  iconSet={'Ionicons'}
-                  maxStars={5}
-                  rating={this.state.StarRating}
-                  selectedStar={rating => this.onStarRatingPress(rating)}
-                  fullStarColor={'#FAC917'}
-                  starSize={20}
-                />
-              </View>
-            </View>
-
-            <View style={styles.viewComment}>
-              <Text style={[styles.titleComments, {color: '#FED03F'}]}>
-                می تونست بهتر از اینا باشه
-              </Text>
-              <Text style={styles.txtComments}>
-                من به تازگی با تیم واش من آشنا شدم و از خدماتی که ارائه میدن
-                خیلی خیلی راضی هستم.حتما پیشنهاد میکنم ازشون استفاده کنید. تیمی
-                حرفه ای و مجرب
-              </Text>
-
-              <View
-                style={{
-                  width: width / 2,
-                  flexDirection: 'row-reverse',
-                  justifyContent: 'space-between',
-                }}>
-                <Text>روشویی-سواری</Text>
-                <StarRating
-                  disabled={false}
-                  emptyStar={'ios-star-outline'}
-                  fullStar={'ios-star'}
-                  halfStar={'ios-star-half'}
-                  iconSet={'Ionicons'}
-                  maxStars={5}
-                  rating={this.state.StarRating}
-                  selectedStar={rating => this.onStarRatingPress(rating)}
-                  fullStarColor={'#FAC917'}
-                  starSize={20}
-                />
-              </View>
-            </View>
-
-            <View style={styles.viewComment}>
-              <Text style={[styles.titleComments, {color: '#ED1111'}]}>
-                توصیه نمی کنم
-              </Text>
-              <Text style={styles.txtComments}>
-                من به تازگی با تیم واش من آشنا شدم و از خدماتی که ارائه میدن
-                خیلی خیلی راضی هستم.حتما پیشنهاد میکنم ازشون استفاده کنید. تیمی
-                حرفه ای و مجرب
-              </Text>
-
-              <View
-                style={{
-                  width: width / 2,
-                  flexDirection: 'row-reverse',
-                  justifyContent: 'space-between',
-                }}>
-                <Text>روشویی-سواری</Text>
-                <StarRating
-                  disabled={false}
-                  emptyStar={'ios-star-outline'}
-                  fullStar={'ios-star'}
-                  halfStar={'ios-star-half'}
-                  iconSet={'Ionicons'}
-                  maxStars={5}
-                  rating={this.state.StarRating}
-                  selectedStar={rating => this.onStarRatingPress(rating)}
-                  fullStarColor={'#FAC917'}
-                  starSize={20}
-                />
-              </View>
-            </View>
+                  <View
+                    style={{
+                      width: width / 2,
+                      flexDirection: 'row-reverse',
+                      justifyContent: 'space-between',
+                    }}>
+                    <Text>{item.titleRating}</Text>
+                    <StarRating
+                      disabled={false}
+                      emptyStar={'ios-star-outline'}
+                      fullStar={'ios-star'}
+                      halfStar={'ios-star-half'}
+                      iconSet={'Ionicons'}
+                      maxStars={5}
+                      rating={item.rating}
+                      selectedStar={rating => this.onStarRatingPress(rating)}
+                      fullStarColor={'#FAC917'}
+                      starSize={20}
+                    />
+                  </View>
+                </View>
+              );
+            })}
           </View>
         );
         break;
@@ -398,9 +251,6 @@ class Blog extends React.Component {
 
 Blog.navigationOptions = () => {
   return {
-    tabBarIcon: ({tintColor}) => (
-      <FontAwesome name="instagram" style={{color: tintColor}} size={28} />
-    ),
     headerStyle: {
       backgroundColor: '#3498DB',
       borderBottomRightRadius: 25,
@@ -417,6 +267,66 @@ Blog.navigationOptions = () => {
     },
   };
 };
+
+const Comments = [
+  {
+    id: 1,
+    title: 'تیم حرفه ای واش من',
+    text:
+      'من به تازگی با تیم واش من آشنا شدم و از خدماتی که ارائه میدن خیلی خیلی راضی هستم.حتما پیشنهاد میکنم ازشون استفاده کنید. تیمی حرفه ای و مجرب',
+    titleRating: 'روشویی-سواری',
+    status: 0,
+    rating: 4.5,
+  },
+  {
+    id: 2,
+    title: 'می تونست بهتر از اینا باشه',
+    text:
+      'من به تازگی با تیم واش من آشنا شدم و از خدماتی که ارائه میدن خیلی خیلی راضی هستم.حتما پیشنهاد میکنم ازشون استفاده کنید. تیمی حرفه ای و مجرب',
+    titleRating: 'روشویی-سواری',
+    status: 1,
+    rating: 2,
+  },
+  {
+    id: 3,
+    title: 'توصیه نمی کنم',
+    text:
+      'من به تازگی با تیم واش من آشنا شدم و از خدماتی که ارائه میدن خیلی خیلی راضی هستم.حتما پیشنهاد میکنم ازشون استفاده کنید. تیمی حرفه ای و مجرب',
+    titleRating: 'روشویی-سواری',
+    status: 2,
+    rating: 5,
+  },
+];
+
+const Best = [
+  {
+    image: require('../../assets/images/F1.png'),
+    title: 'تجربه ای حرفه ای با واش من',
+    date: 'دهم شهریور',
+    like: 250,
+  },
+  {
+    image: require('../../assets/images/F2.png'),
+    title: 'چرا با واش من',
+    date: 'دهم شهریور',
+    like: 323,
+  },
+];
+
+const Last = [
+  {
+    image: require('../../assets/images/Blog1.png'),
+    title: 'تجربه ای حرفه ای با واش من',
+    date: 'دهم شهریور',
+    like: 250,
+  },
+  {
+    image: require('../../assets/images/Blog2.png'),
+    title: 'چرا با واش من',
+    date: 'دهم شهریور',
+    like: 323,
+  },
+];
 
 const {width, height} = Dimensions.get('window');
 const styles = StyleSheet.create({
