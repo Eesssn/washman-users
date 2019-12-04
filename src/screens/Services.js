@@ -1,33 +1,43 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  StyleSheet,
+} from 'react-native';
 
 class ServicesR extends React.Component {
   render() {
     return (
-      <View style={{flex: 1, backgroundColor: '#FCFAFA', alignItems: 'center'}}>
-        <View style={styles.container}>
-          <Image
-            source={this.props.navigation.state.params.image}
-            style={styles.img}
-          />
-          <Text style={{color: '#FFC200', fontSize: 20, marginBottom: 5}}>
-            {this.props.navigation.state.params.VIP === null &&
-            this.props.navigation.state.params.CIP === null
-              ? null
-              : this.props.navigation.state.params.CIP === true
-              ? 'C.I.P'
-              : 'V.I.P'}
-          </Text>
-          <Text style={styles.txt}>
-            {this.props.navigation.state.params.text}
-          </Text>
+      <ScrollView>
+        <View
+          style={{flex: 1, backgroundColor: '#FCFAFA', alignItems: 'center'}}>
+          <View style={styles.container}>
+            <Image
+              source={this.props.navigation.state.params.image}
+              style={styles.img}
+            />
+            <Text style={{color: '#FFC200', fontSize: 20, marginBottom: 5}}>
+              {this.props.navigation.state.params.VIP === null &&
+              this.props.navigation.state.params.CIP === null
+                ? null
+                : this.props.navigation.state.params.CIP === true
+                ? 'C.I.P'
+                : 'V.I.P'}
+            </Text>
+            <Text style={styles.txt}>
+              {this.props.navigation.state.params.text}
+            </Text>
+          </View>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => this.props.navigation.navigate('ReserveWash')}>
+            <Text style={styles.txtBtn}>ثبت خدمات</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={styles.btn}
-          onPress={() => this.props.navigation.navigate('ReserveWash')}>
-          <Text style={styles.txtBtn}>ثبت خدمات</Text>
-        </TouchableOpacity>
-      </View>
+      </ScrollView>
     );
   }
 }

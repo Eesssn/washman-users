@@ -23,10 +23,10 @@ class Blog extends React.Component {
         return [styles.titleComments, {color: '#02B800'}];
         break;
       case 1:
-        return [styles.titleComments, {color: 'yellow'}];
+        return [styles.titleComments, {color: '#FED03F'}];
         break;
       default:
-        return [styles.titleComments, {color: 'red'}];
+        return [styles.titleComments, {color: '#ED1111'}];
     }
   };
 

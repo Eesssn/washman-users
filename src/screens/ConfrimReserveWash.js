@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
+  ScrollView,
 } from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 
@@ -24,70 +25,76 @@ class ConfrimReserveWash extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <View>
-          <View style={styles.tab}></View>
-          <MapView
-            style={styles.map}
-            initialRegion={{
-              latitude: 35.736841,
-              longitude: 51.389038,
-              latitudeDelta: 0.05,
-              longitudeDelta: 0.05,
-            }}>
-            <Marker coordinate={{latitude: 35.736841, longitude: 51.389038}} />
-          </MapView>
-        </View>
-        <View style={{alignItems: 'center'}}>
-          <View
-            style={{
-              borderWidth: 1,
-              borderRadius: 10,
-              borderColor: '#C3C3C3',
-              width: width - 40,
-              marginTop: 10,
-            }}>
-            <Text style={styles.txt}>
-              آدرس:خیابان مطهری-میرزای شیرازی-پلاک 299-واحد سوم
-            </Text>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row-reverse',
-              justifyContent: 'space-around',
-              width: width - 50,
-            }}>
-            <View
-              style={{
-                borderWidth: 1,
-                borderRadius: 10,
-                borderColor: '#C3C3C3',
-                width: width / 2 - 80,
-                marginTop: 10,
-              }}>
-              <Text style={styles.txt}>پلاک:299</Text>
-            </View>
-            <View
-              style={{
-                borderWidth: 1,
-                borderRadius: 10,
-                borderColor: '#C3C3C3',
-                width: width / 2 - 80,
-                marginTop: 10,
-              }}>
-              <Text style={styles.txt}>واحد سوم</Text>
-            </View>
-          </View>
-
+      <ScrollView>
+        <View style={styles.container}>
           <View>
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => this.props.navigation.navigate('ServiceReserve')}>
-              <Text style={styles.txtBtn}>تایید محل</Text>
-            </TouchableOpacity>
+            <View style={styles.tab}></View>
+            <MapView
+              style={styles.map}
+              initialRegion={{
+                latitude: 35.736841,
+                longitude: 51.389038,
+                latitudeDelta: 0.05,
+                longitudeDelta: 0.05,
+              }}>
+              <Marker
+                coordinate={{latitude: 35.736841, longitude: 51.389038}}
+              />
+            </MapView>
+          </View>
+          <View style={{alignItems: 'center'}}>
+            <View
+              style={{
+                borderWidth: 1,
+                borderRadius: 10,
+                borderColor: '#C3C3C3',
+                width: width - 40,
+                marginTop: 10,
+              }}>
+              <Text style={styles.txt}>
+                آدرس:خیابان مطهری-میرزای شیرازی-پلاک 299-واحد سوم
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row-reverse',
+                justifyContent: 'space-around',
+                width: width - 50,
+              }}>
+              <View
+                style={{
+                  borderWidth: 1,
+                  borderRadius: 10,
+                  borderColor: '#C3C3C3',
+                  width: width / 2 - 80,
+                  marginTop: 10,
+                }}>
+                <Text style={styles.txt}>پلاک:299</Text>
+              </View>
+              <View
+                style={{
+                  borderWidth: 1,
+                  borderRadius: 10,
+                  borderColor: '#C3C3C3',
+                  width: width / 2 - 80,
+                  marginTop: 10,
+                }}>
+                <Text style={styles.txt}>واحد سوم</Text>
+              </View>
+            </View>
+
+            <View>
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() =>
+                  this.props.navigation.navigate('ServiceReserve')
+                }>
+                <Text style={styles.txtBtn}>تایید محل</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }

@@ -133,7 +133,7 @@ class Home extends React.Component {
                   textAlign: 'center',
                   marginTop: 4,
                 }}>
-                چر واش من
+                چرا واش من
               </Text>
             </View>
           </View>
@@ -228,6 +228,7 @@ const styles = StyleSheet.create({
     height: 30,
     right: 30,
     top: 100,
+    marginBottom: 5,
     alignItems: 'center',
   },
   icon: {

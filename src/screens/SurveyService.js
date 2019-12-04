@@ -20,7 +20,11 @@ class SurveyService extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rateChanged: 2,
+      StarRating1: null,
+      StarRating2: null,
+      StarRating3: null,
+      StarRating4: null,
+      StarRating5: null,
     };
   }
 
@@ -122,7 +126,7 @@ class SurveyService extends React.Component {
                     paddingBottom: 5,
                   }}>
                   <Text style={styles.txtDetail}>آدرس</Text>
-                  <View style={{width: 250}}>
+                  <View style={{width: 200}}>
                     <Text style={styles.txt}>
                       تهران-خیابان جمالزاده-بعد از پل صدر پلاک 399 واحد 3
                     </Text>
@@ -165,8 +169,12 @@ class SurveyService extends React.Component {
                 halfStar={'ios-star-half'}
                 iconSet={'Ionicons'}
                 maxStars={5}
-                rating={this.state.StarRating}
-                selectedStar={rating => this.onStarRatingPress(rating)}
+                rating={this.state.StarRating1}
+                selectedStar={rating =>
+                  this.setState({
+                    StarRating1: rating,
+                  })
+                }
                 fullStarColor={'#FAC917'}
                 starSize={20}
               />
@@ -188,8 +196,12 @@ class SurveyService extends React.Component {
                 halfStar={'ios-star-half'}
                 iconSet={'Ionicons'}
                 maxStars={5}
-                rating={this.state.StarRating}
-                selectedStar={rating => this.onStarRatingPress(rating)}
+                rating={this.state.StarRating2}
+                selectedStar={rating =>
+                  this.setState({
+                    StarRating2: rating,
+                  })
+                }
                 fullStarColor={'#FAC917'}
                 starSize={20}
               />
@@ -211,8 +223,12 @@ class SurveyService extends React.Component {
                 halfStar={'ios-star-half'}
                 iconSet={'Ionicons'}
                 maxStars={5}
-                rating={this.state.StarRating}
-                selectedStar={rating => this.onStarRatingPress(rating)}
+                rating={this.state.StarRating3}
+                selectedStar={rating =>
+                  this.setState({
+                    StarRating3: rating,
+                  })
+                }
                 fullStarColor={'#FAC917'}
                 starSize={20}
               />
@@ -234,8 +250,12 @@ class SurveyService extends React.Component {
                 halfStar={'ios-star-half'}
                 iconSet={'Ionicons'}
                 maxStars={5}
-                rating={this.state.StarRating}
-                selectedStar={rating => this.onStarRatingPress(rating)}
+                rating={this.state.StarRating4}
+                selectedStar={rating =>
+                  this.setState({
+                    StarRating4: rating,
+                  })
+                }
                 fullStarColor={'#FAC917'}
                 starSize={20}
               />
@@ -258,8 +278,12 @@ class SurveyService extends React.Component {
                 halfStar={'ios-star-half'}
                 iconSet={'Ionicons'}
                 maxStars={5}
-                rating={this.state.StarRating}
-                selectedStar={rating => this.onStarRatingPress(rating)}
+                rating={this.state.StarRating5}
+                selectedStar={rating =>
+                  this.setState({
+                    StarRating5: rating,
+                  })
+                }
                 fullStarColor={'#FAC917'}
                 starSize={20}
               />

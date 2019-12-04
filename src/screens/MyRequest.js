@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  Linking,
+} from 'react-native';
 
 class MyRequest extends React.Component {
   render() {
@@ -124,10 +131,12 @@ MyRequest.navigationOptions = ({navigation}) => {
       fontFamily: 'IRANSansWeb',
     },
     headerRight: (
-      <Image
-        source={require('../../assets/images/call.png')}
-        style={{width: 30, height: 30, marginRight: 20}}
-      />
+      <TouchableOpacity onPress={() => Linking.openURL('tel:02144085717')}>
+        <Image
+          source={require('../../assets/images/call.png')}
+          style={{width: 30, height: 30, marginRight: 20}}
+        />
+      </TouchableOpacity>
     ),
   };
 };

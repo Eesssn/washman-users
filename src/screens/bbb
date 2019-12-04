@@ -190,6 +190,14 @@ class Blog extends React.Component {
     }
   };
 
+  componentDidMount() {
+    this.props.navigation.setParams({Change: this.changeItem});
+  }
+
+  changeItem = () => {
+    this.setState({discription: 'best'});
+  };
+
   constructor() {
     super();
     this.state = {
@@ -201,55 +209,13 @@ class Blog extends React.Component {
   render() {
     return (
       <View style={{flex: 1, backgroundColor: '#FCFAFA'}}>
-        <View style={styles.tab}>
-          <View>
-            <TouchableOpacity
-              style={{justifyContent: 'center', alignItems: 'center'}}
-              onPress={() => this.setState({discription: 'lastSubject'})}>
-              <Text style={styles.txt}>آخرین مطلب</Text>
-              <View
-                style={
-                  this.state.discription === 'lastSubject'
-                    ? styles.underline
-                    : null
-                }
-              />
-            </TouchableOpacity>
-          </View>
-          <View>
-            <TouchableOpacity
-              style={{justifyContent: 'center', alignItems: 'center'}}
-              onPress={() => this.setState({discription: 'best'})}>
-              <Text style={styles.txt}>بهترینها</Text>
-              <View
-                style={
-                  this.state.discription === 'best' ? styles.underline : null
-                }
-              />
-            </TouchableOpacity>
-          </View>
-          <View>
-            <TouchableOpacity
-              style={{justifyContent: 'center', alignItems: 'center'}}
-              onPress={() => this.setState({discription: 'yourComment'})}>
-              <Text style={styles.txt}>نظرات شما</Text>
-              <View
-                style={
-                  this.state.discription === 'yourComment'
-                    ? styles.underline
-                    : null
-                }
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
         <ScrollView>{this.tabView()}</ScrollView>
       </View>
     );
   }
 }
 
-Blog.navigationOptions = () => {
+Blog.navigationOptions = ({navigation}) => {
   return {
     headerStyle: {
       backgroundColor: '#3498DB',
@@ -264,6 +230,52 @@ Blog.navigationOptions = () => {
     headerTitleStyle: {
       fontWeight: 'bold',
       fontFamily: 'IRANSansWeb',
+    },
+    header: () => {
+      return (
+        <View style={styles.tab}>
+          <View>
+            <TouchableOpacity
+              style={{justifyContent: 'center', alignItems: 'center'}}
+              onPress={() => navigation.getParam('Change')}>
+              <Text style={styles.txt}>آخرین مطلب</Text>
+              {/* <View
+                style={
+                  this.state.discription === 'lastSubject'
+                    ? styles.underline
+                    : null
+                }
+              /> */}
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity
+              style={{justifyContent: 'center', alignItems: 'center'}}
+              onPress={() => navigation.getParam('Change')}>
+              <Text style={styles.txt}>بهترینها</Text>
+              {/* <View
+                style={
+                  this.state.discription === 'best' ? styles.underline : null
+                }
+              /> */}
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity
+              style={{justifyContent: 'center', alignItems: 'center'}}
+              onPress={() => navigation.getParam('Change')}>
+              <Text style={styles.txt}>نظرات شما</Text>
+              {/* <View
+                style={
+                  this.state.discription === 'yourComment'
+                    ? styles.underline
+                    : null
+                }
+              /> */}
+            </TouchableOpacity>
+          </View>
+        </View>
+      );
     },
   };
 };

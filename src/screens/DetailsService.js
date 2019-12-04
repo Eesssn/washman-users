@@ -7,6 +7,7 @@ import {
   Dimensions,
   ScrollView,
   TouchableOpacity,
+  Linking,
   StyleSheet,
 } from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
@@ -146,6 +147,7 @@ class DetailsService extends React.Component {
               style={styles.txtInput}
               placeholder="لطفا یه شخص بگید که خیلی حرفه ای باشه"
               placeholderTextColor="#858585"
+              multiline={true}
             />
             <Image
               source={require('../../assets/images/edit.png')}
@@ -216,10 +218,12 @@ DetailsService.navigationOptions = ({navigation}) => {
       fontFamily: 'IRANSansWeb',
     },
     headerRight: (
-      <Image
-        source={require('../../assets/images/call.png')}
-        style={{width: 30, height: 30, marginRight: 20}}
-      />
+      <TouchableOpacity onPress={() => Linking.openURL('tel:02144085717')}>
+        <Image
+          source={require('../../assets/images/call.png')}
+          style={{width: 30, height: 30, marginRight: 20}}
+        />
+      </TouchableOpacity>
     ),
   };
 };

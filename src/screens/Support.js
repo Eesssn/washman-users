@@ -6,11 +6,15 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
+  Linking,
 } from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 class Support extends React.Component {
+  Calling = () => {
+    Linking.openURL('02144085717');
+  };
+
   render() {
     return (
       <View
@@ -57,20 +61,23 @@ class Support extends React.Component {
           </Text>
         </View>
         <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => Linking.openURL('https://whatsapp.org')}>
             <Image
               source={require('../../assets/images/whatsapp.png')}
               style={{marginHorizontal: 10, width: 50, height: 50}}
             />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => Linking.openURL('https://telegram.org')}>
             <Image
               source={require('../../assets/images/telegram.png')}
               size={50}
               style={{marginHorizontal: 10, width: 50, height: 50}}
             />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => Linking.openURL('https://instagram.com')}>
             <Image
               source={require('../../assets/images/instagram.png')}
               style={{marginHorizontal: 10, width: 50, height: 50}}
@@ -99,10 +106,12 @@ Support.navigationOptions = () => {
       fontFamily: 'IRANSansWeb',
     },
     headerRight: (
-      <Image
-        source={require('../../assets/images/call.png')}
-        style={{width: 30, height: 30, marginRight: 20}}
-      />
+      <TouchableOpacity onPress={() => Linking.openURL('tel:02144085717')}>
+        <Image
+          source={require('../../assets/images/call.png')}
+          style={{width: 30, height: 30, marginRight: 20}}
+        />
+      </TouchableOpacity>
     ),
   };
 };
@@ -119,14 +128,14 @@ const styles = StyleSheet.create({
     width,
     height: 55,
     backgroundColor: 'white',
-    shadowColor: '#000000',
+    shadowColor: '#000',
     shadowOffset: {
-      height: 2,
-      width: 2,
+      width: 0,
+      height: 1,
     },
-    shadowOpacity: 0.016,
-    shadowRadius: 5,
-    elevation: 5,
+    shadowOpacity: 0.1,
+    shadowRadius: 1.41,
+    elevation: 2,
   },
   txt: {
     fontSize: 16,

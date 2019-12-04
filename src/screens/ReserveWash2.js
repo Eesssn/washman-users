@@ -8,6 +8,7 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
+  Linking,
 } from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 
@@ -98,7 +99,7 @@ class ReserveWash2 extends React.Component {
                     paddingBottom: 5,
                   }}>
                   <Text style={styles.txtDetail}>آدرس</Text>
-                  <View style={{width: 250}}>
+                  <View style={{width: 200}}>
                     <Text style={styles.txt}>
                       تهران-خیابان جمالزاده-بعد از پل صدر پلاک 399 واحد 3
                     </Text>
@@ -146,6 +147,7 @@ class ReserveWash2 extends React.Component {
               style={styles.txtInput}
               placeholder="لطفا یه شخص بگید که خیلی حرفه ای باشه"
               placeholderTextColor="#858585"
+              multiline={true}
             />
             <Image
               source={require('../../assets/images/edit.png')}
@@ -218,10 +220,12 @@ ReserveWash2.navigationOptions = ({navigation}) => {
       fontFamily: 'IRANSansWeb',
     },
     headerRight: (
-      <Image
-        source={require('../../assets/images/call.png')}
-        style={{width: 30, height: 30, marginRight: 20}}
-      />
+      <TouchableOpacity onPress={() => Linking.openURL('tel:02144085717')}>
+        <Image
+          source={require('../../assets/images/call.png')}
+          style={{width: 30, height: 30, marginRight: 20}}
+        />
+      </TouchableOpacity>
     ),
   };
 };

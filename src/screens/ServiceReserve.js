@@ -7,6 +7,7 @@ import {
   Dimensions,
   ScrollView,
   StyleSheet,
+  Linking,
 } from 'react-native';
 import Datepicker, {getFormatedDate} from 'react-native-modern-datepicker';
 
@@ -85,7 +86,7 @@ class ServiceReserve extends React.Component {
           </View>
           <View
             style={{
-              width: width - 20,
+              width: width - 10,
               flexDirection: 'row',
               justifyContent: 'space-around',
             }}>
@@ -106,7 +107,7 @@ class ServiceReserve extends React.Component {
                           {
                             shadowColor: '#3498DB',
                             borderColor: '#3498DB',
-                            borderWidth: 1,
+                            borderWidth: 1.5,
                           },
                         ]
                       : styles.btnService
@@ -165,7 +166,7 @@ class ServiceReserve extends React.Component {
                               {
                                 shadowColor: '#3498DB',
                                 borderColor: '#3498DB',
-                                borderWidth: 1,
+                                borderWidth: 1.5,
                               },
                             ]
                         : null
@@ -206,7 +207,7 @@ class ServiceReserve extends React.Component {
                               {
                                 shadowColor: '#3498DB',
                                 borderColor: '#3498DB',
-                                borderWidth: 1,
+                                borderWidth: 1.5,
                               },
                             ]
                         : styles.btnService
@@ -253,7 +254,7 @@ class ServiceReserve extends React.Component {
                 <Text style={styles.txtTab}>تعیین وقت</Text>
               </TouchableOpacity>
             </View>
-            <View style={{marginTop: 20, width, alignItems: 'center'}}>
+            <View style={{width, alignItems: 'center'}}>
               {this.selectedView()}
             </View>
           </View>
@@ -290,7 +291,7 @@ ServiceReserve.navigationOptions = () => {
       fontFamily: 'IRANSansWeb',
     },
     headerRight: (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => Linking.openURL('tel:02144085717')}>
         <Image
           source={require('../../assets/images/call.png')}
           style={{width: 30, height: 30, marginRight: 20}}
