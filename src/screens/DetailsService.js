@@ -99,7 +99,7 @@ class DetailsService extends React.Component {
                     paddingBottom: 5,
                   }}>
                   <Text style={styles.txtDetail}>آدرس</Text>
-                  <View style={{width: 250}}>
+                  <View style={{width: 200}}>
                     <Text style={styles.txt}>
                       تهران-خیابان جمالزاده-بعد از پل صدر پلاک 399 واحد 3
                     </Text>
@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
     fontFamily: 'IRANSansWeb',
     color: '#858585',
     fontSize: 16,
-    paddingVertical: 7,
+    paddingVertical: 10,
     paddingHorizontal: 40,
   },
 });

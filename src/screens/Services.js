@@ -31,11 +31,13 @@ class ServicesR extends React.Component {
               {this.props.navigation.state.params.text}
             </Text>
           </View>
-          <TouchableOpacity
-            style={styles.btn}
-            onPress={() => this.props.navigation.navigate('ReserveWash')}>
-            <Text style={styles.txtBtn}>ثبت خدمات</Text>
-          </TouchableOpacity>
+          <View>
+            <TouchableOpacity
+              style={styles.btn}
+              onPress={() => this.props.navigation.navigate('ReserveWash')}>
+              <Text style={styles.txtBtn}>ثبت خدمات</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </ScrollView>
     );

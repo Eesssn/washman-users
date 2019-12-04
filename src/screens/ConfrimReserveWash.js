@@ -28,7 +28,6 @@ class ConfrimReserveWash extends React.Component {
       <ScrollView>
         <View style={styles.container}>
           <View>
-            <View style={styles.tab}></View>
             <MapView
               style={styles.map}
               initialRegion={{
@@ -83,15 +82,11 @@ class ConfrimReserveWash extends React.Component {
               </View>
             </View>
 
-            <View>
-              <TouchableOpacity
-                style={styles.btn}
-                onPress={() =>
-                  this.props.navigation.navigate('ServiceReserve')
-                }>
-                <Text style={styles.txtBtn}>تایید محل</Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              style={styles.btn}
+              onPress={() => this.props.navigation.navigate('ServiceReserve')}>
+              <Text style={styles.txtBtn}>تایید محل</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
@@ -99,11 +94,8 @@ class ConfrimReserveWash extends React.Component {
   }
 }
 
-ConfrimReserveWash.navigationOptions = () => {
+ConfrimReserveWash.navigationOptions = ({navigation}) => {
   return {
-    tabBarIcon: ({tintColor}) => (
-      <FontAwesome name="instagram" style={{color: tintColor}} size={28} />
-    ),
     headerStyle: {
       backgroundColor: '#3498DB',
       borderBottomRightRadius: 25,
@@ -119,7 +111,7 @@ ConfrimReserveWash.navigationOptions = () => {
       fontFamily: 'IRANSansWeb',
     },
     headerRight: (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('MyRequest')}>
         <Image
           source={require('../../assets/images/bell.png')}
           style={{width: 30, height: 30, marginRight: 20}}
@@ -133,11 +125,10 @@ const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   map: {
-    height: height / 2,
+    height: 350,
   },
   container: {
     width: width,
-    height: height,
     position: 'relative',
   },
   btn: {
@@ -161,22 +152,6 @@ const styles = StyleSheet.create({
     color: '#858585',
     textAlign: 'center',
     padding: 10,
-  },
-  tab: {
-    position: 'absolute',
-    flexDirection: 'row-reverse',
-    backgroundColor: 'white',
-    height: 50,
-    width: width,
-    borderBottomRightRadius: 15,
-    borderBottomLeftRadius: 15,
-    shadowColor: '#000',
-    shadowOffset: {
-      height: 2,
-      width: 2,
-    },
-    position: 'absolute',
-    bottom: 100,
   },
 });
 

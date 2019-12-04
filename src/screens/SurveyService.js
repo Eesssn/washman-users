@@ -312,6 +312,7 @@ class SurveyService extends React.Component {
               style={styles.txtInput}
               placeholder="ثبت نظر"
               placeholderTextColor="#858585"
+              multiline={true}
             />
             <Image
               source={require('../../assets/images/edit.png')}
@@ -344,7 +345,7 @@ SurveyService.navigationOptions = ({navigation}) => {
     },
     headerTintColor: 'white',
     headerLeft: null,
-    title: 'جزییات خدمت',
+    title: 'نظرسنجی خدمات',
     headerTitleStyle: {
       fontWeight: 'bold',
       fontFamily: 'IRANSansWeb',

@@ -84,40 +84,45 @@ class ServiceReserve extends React.Component {
           <View style={{alignItems: 'center'}}>
             <Text style={styles.title}>نوع ماشین</Text>
           </View>
-          <View
-            style={{
-              width: width - 10,
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-            }}>
-            {Cars.map(item => {
-              let indexer2 = this.state.tempCar.length - 1;
-              let key2 = this.state.tempCar[indexer2];
-              let lol4 = this.state.tempCar.filter(hehe => hehe == item.id);
-              return (
-                <TouchableOpacity
-                  onPress={() =>
-                    this.setState({tempCar: [...this.state.tempCar, item.id]})
-                  }
-                  key={item.id}
-                  style={
-                    key2 == item.id
-                      ? [
-                          styles.btnService,
-                          {
-                            shadowColor: '#3498DB',
-                            borderColor: '#3498DB',
-                            borderWidth: 1.5,
-                          },
-                        ]
-                      : styles.btnService
-                  }>
-                  <Image source={item.image} style={{width: 60, height: 30}} />
-                  <Text style={styles.titleCar}>{item.title}</Text>
-                </TouchableOpacity>
-              );
-            })}
-          </View>
+          <ScrollView horizontal={true}>
+            <View
+              style={{
+                width: width - 10,
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+              }}>
+              {Cars.map(item => {
+                let indexer2 = this.state.tempCar.length - 1;
+                let key2 = this.state.tempCar[indexer2];
+                let lol4 = this.state.tempCar.filter(hehe => hehe == item.id);
+                return (
+                  <TouchableOpacity
+                    onPress={() =>
+                      this.setState({tempCar: [...this.state.tempCar, item.id]})
+                    }
+                    key={item.id}
+                    style={
+                      key2 == item.id
+                        ? [
+                            styles.btnService,
+                            {
+                              shadowColor: '#3498DB',
+                              borderColor: '#3498DB',
+                              borderWidth: 1.5,
+                            },
+                          ]
+                        : styles.btnService
+                    }>
+                    <Image
+                      source={item.image}
+                      style={{width: 60, height: 30}}
+                    />
+                    <Text style={styles.titleCar}>{item.title}</Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+          </ScrollView>
         </View>
         <View style={{marginTop: 20, width}}>
           <Text
@@ -136,50 +141,52 @@ class ServiceReserve extends React.Component {
             <View style={{alignItems: 'center'}}>
               <Text style={styles.title}>نوع خدمت</Text>
             </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                width,
-                justifyContent: 'center',
-                flexWrap: 'wrap',
-              }}>
-              {services.map(item => {
-                let lol2;
-                if (this.state.temp) {
-                  lol2 = this.state.temp.filter(hehe => hehe == item.id);
-                }
-                return (
-                  <TouchableOpacity
-                    onPress={() => {
-                      this.setState({
-                        temp: [...this.state.temp, item.id],
-                        temp2: [],
-                      });
-                    }}
-                    key={item.id}
-                    style={
-                      lol2
-                        ? lol2.length % 2 == 0
-                          ? styles.btnService
-                          : [
-                              styles.btnService,
-                              {
-                                shadowColor: '#3498DB',
-                                borderColor: '#3498DB',
-                                borderWidth: 1.5,
-                              },
-                            ]
-                        : null
-                    }>
-                    <Image
-                      source={item.image}
-                      style={{width: 60, height: 60}}
-                    />
-                    <Text style={styles.titleCar}>{item.title}</Text>
-                  </TouchableOpacity>
-                );
-              })}
-            </View>
+            <ScrollView horizontal={true}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  width,
+                  justifyContent: 'center',
+                  flexWrap: 'wrap',
+                }}>
+                {services.map(item => {
+                  let lol2;
+                  if (this.state.temp) {
+                    lol2 = this.state.temp.filter(hehe => hehe == item.id);
+                  }
+                  return (
+                    <TouchableOpacity
+                      onPress={() => {
+                        this.setState({
+                          temp: [...this.state.temp, item.id],
+                          temp2: [],
+                        });
+                      }}
+                      key={item.id}
+                      style={
+                        lol2
+                          ? lol2.length % 2 == 0
+                            ? styles.btnService
+                            : [
+                                styles.btnService,
+                                {
+                                  shadowColor: '#3498DB',
+                                  borderColor: '#3498DB',
+                                  borderWidth: 1.5,
+                                },
+                              ]
+                          : null
+                      }>
+                      <Image
+                        source={item.image}
+                        style={{width: 60, height: 60}}
+                      />
+                      <Text style={styles.titleCar}>{item.title}</Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
+            </ScrollView>
             <View
               style={{
                 flexDirection: 'row',

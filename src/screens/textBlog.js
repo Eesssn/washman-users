@@ -8,16 +8,28 @@ import {
   Dimensions,
   StyleSheet,
 } from 'react-native';
+import bookmark from '../../assets/images/bookmark.png';
+import bookmarkTag from '../../assets/images/bookmark-tag.png';
 
 class TextBlog extends React.Component {
   static navigationOptions = {
     header: null,
   };
+  showImage = () => {
+    var img = this.state.showBookmark ? bookmark : bookmarkTag;
+    return <Image source={img} style={styles.icon} />;
+  };
+  constructor() {
+    super();
+    this.state = {
+      showBookmark: true,
+    };
+  }
   render() {
     return (
       <ScrollView style={{backgroundColor: '#FCFAFA'}}>
         <Image
-          source={require('../../assets/images/Blog1.png')}
+          source={this.props.navigation.state.params.image}
           style={styles.img}
         />
         <View
@@ -30,19 +42,15 @@ class TextBlog extends React.Component {
             alignItems: 'center',
             backgroundColor: 'white',
           }}>
-          <Text style={styles.title}>چرا واش من؟</Text>
+          <Text style={styles.title}>
+            {this.props.navigation.state.params.title}
+          </Text>
           <View style={{flexDirection: 'row-reverse', paddingRight: 20}}>
-            <TouchableOpacity>
-              <Image
-                source={require('../../assets/images/bookmark.png')}
-                style={styles.icon}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Image
-                source={require('../../assets/images/share.png')}
-                style={styles.icon}
-              />
+            <TouchableOpacity
+              onPress={() =>
+                this.setState({showBookmark: !this.state.showBookmark})
+              }>
+              {this.showImage()}
             </TouchableOpacity>
           </View>
         </View>
@@ -52,20 +60,7 @@ class TextBlog extends React.Component {
             paddingVertical: 10,
           }}>
           <Text style={styles.txt}>
-            پروتئین های سالم و مواد مغذی میوه ها و سبزیجات به داشتن پوستی درخشان
-            کمک می کنند.این مواد را به رژیم غذایی تان اضافه کنید تا نتایج را به
-            سرعت مشاهده کنید: اسید های چرب امگا ۳.این ماده در ماهی و گردو پیدا
-            میشود و مخصوصا برای پوستتان مفید است. ویتامین C.این ماده به بهبود
-            جوش ها کمک میکند پس خوردن چند وعده مرکبات و اسفناج در روز سودمند
-            است. غذاهای غنی از فیبر.سبزیجات تازه،آجیل و میوه های فرآوری نشده به
-            تعادل،نظم و کُند نبودن دستگاه گوارش کمک می کنند.اگر در روز یکبار یا
-            بیشتر دفع مدفوع نداشته باشید،ممکن است به نظر خسته و مریض(سردرد و
-            مشکلات معدوی) بیایید پروتئین های سالم و مواد مغذی میوه ها و سبزیجات
-            به داشتن پوستی درخشان کمک می کنند.این مواد را به رژیم غذایی تان
-            اضافه کنید تا نتایج را به سرعت مشاهده کنید: اسید های چرب امگا ۳.این
-            ماده در ماهی و گردو پیدا میشود و مخصوصا برای پوستتان مفید است.
-            ویتامین C.این ماده به بهبود جوش ها کمک میکند پس خوردن چند وعده
-            مرکبات و اسفناج در روز سودمند است.
+            {this.props.navigation.state.params.text}
           </Text>
         </View>
         <View
@@ -103,9 +98,9 @@ const styles = StyleSheet.create({
     height: 200,
   },
   icon: {
-    width: 15,
-    height: 15,
-    marginLeft: 15,
+    width: 20,
+    height: 20,
+    marginLeft: 25,
   },
   title: {
     fontSize: 16,
