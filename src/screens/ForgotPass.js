@@ -53,7 +53,7 @@ class ForgotPass extends React.Component {
               <TextInput
                 style={styles.textinput}
                 value={this.state.tell}
-                onChangeText={tell => this.setState(tell)}
+                onChangeText={tell => this.setState({tell: tell})}
                 placeholder={'شماره موبایل'}
                 placeholderTextColor="#858585"
                 keyboardType="numeric"

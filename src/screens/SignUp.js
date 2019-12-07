@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
+  TouchableWithoutFeedback,
   StyleSheet,
 } from 'react-native';
 
@@ -33,6 +34,7 @@ class SignUp extends React.Component {
       password: null,
       cPassword: null,
       TextChanger: styles.txtP,
+      showTxt: true,
     };
   }
 
@@ -60,6 +62,7 @@ class SignUp extends React.Component {
           <View>
             <View style={{position: 'relative'}}>
               <TextInput
+                ref={input => (this.txtInput = input)}
                 style={styles.textinput}
                 value={this.state.tell}
                 onChangeText={val => this.setState({tell: val})}
@@ -68,6 +71,11 @@ class SignUp extends React.Component {
                 }}
                 onBlur={() => {
                   this.placeHolderMove(false);
+                  if (!this.state.tell.trim()) {
+                    this.setState({showTxt: true});
+                  } else {
+                    this.setState({showTxt: false});
+                  }
                 }}
                 keyboardType="numeric"
                 maxLength={12}
@@ -82,7 +90,15 @@ class SignUp extends React.Component {
                   height: 25,
                 }}
               />
-              <Text style={this.state.TextChanger}>شماره موبایل</Text>
+              {this.state.showTxt ? (
+                <TouchableWithoutFeedback onPress={() => this.txtInput.focus()}>
+                  <Text style={this.state.TextChanger}>شماره موبایل</Text>
+                </TouchableWithoutFeedback>
+              ) : (
+                <TouchableWithoutFeedback>
+                  <Text style={styles.txtN}>شماره موبایل</Text>
+                </TouchableWithoutFeedback>
+              )}
             </View>
             <View style={{position: 'relative'}}>
               <TextInput
@@ -140,8 +156,6 @@ class SignUp extends React.Component {
   }
 }
 
-let TextChanger = null;
-
 const styles = StyleSheet.create({
   img: {
     width: 100,
@@ -177,8 +191,8 @@ const styles = StyleSheet.create({
   },
   txtP: {
     position: 'absolute',
-    top: 35,
-    right: 40,
+    top: 30,
+    right: 45,
     color: '#858585',
     fontSize: 18,
   },
@@ -187,7 +201,7 @@ const styles = StyleSheet.create({
     top: 20,
     right: 40,
     color: '#858585',
-    fontSize: 15,
+    fontSize: 13,
   },
 });
 

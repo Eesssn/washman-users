@@ -255,8 +255,8 @@ const styles = StyleSheet.create({
   txtInput: {
     fontFamily: 'IRANSansWeb',
     color: '#858585',
-    fontSize: 16,
-    paddingVertical: 10,
+    fontSize: 14,
+    paddingBottom: 45,
     paddingHorizontal: 40,
   },
 });

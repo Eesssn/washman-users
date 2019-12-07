@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
+  Linking,
 } from 'react-native';
 
 class ServicesR extends React.Component {
@@ -61,10 +62,12 @@ ServicesR.navigationOptions = ({navigation}) => {
       fontFamily: 'IRANSansWeb',
     },
     headerRight: (
-      <Image
-        source={require('../../assets/images/call.png')}
-        style={{width: 30, height: 30, marginRight: 20}}
-      />
+      <TouchableOpacity onPress={() => Linking.openURL('tel:02144085717')}>
+        <Image
+          source={require('../../assets/images/call.png')}
+          style={{width: 30, height: 30, marginRight: 20}}
+        />
+      </TouchableOpacity>
     ),
   };
 };

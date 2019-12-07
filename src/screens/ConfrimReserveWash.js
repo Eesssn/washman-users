@@ -41,7 +41,7 @@ class ConfrimReserveWash extends React.Component {
               />
             </MapView>
           </View>
-          <View style={{alignItems: 'center'}}>
+          <View style={{alignItems: 'center', paddingBottom: 20}}>
             <View
               style={{
                 borderWidth: 1,
@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     top: 10,
+    // paddingBottom: 15,
   },
   txtBtn: {
     color: 'white',

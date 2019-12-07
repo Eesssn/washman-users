@@ -84,13 +84,16 @@ class ServiceReserve extends React.Component {
           <View style={{alignItems: 'center'}}>
             <Text style={styles.title}>نوع ماشین</Text>
           </View>
-          <ScrollView horizontal={true}>
-            <View
-              style={{
-                width: width - 10,
-                flexDirection: 'row',
-                justifyContent: 'space-around',
-              }}>
+
+          <View
+            style={{
+              width: width - 10,
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+            }}>
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}>
               {Cars.map(item => {
                 let indexer2 = this.state.tempCar.length - 1;
                 let key2 = this.state.tempCar[indexer2];
@@ -121,8 +124,8 @@ class ServiceReserve extends React.Component {
                   </TouchableOpacity>
                 );
               })}
-            </View>
-          </ScrollView>
+            </ScrollView>
+          </View>
         </View>
         <View style={{marginTop: 20, width}}>
           <Text
@@ -141,14 +144,17 @@ class ServiceReserve extends React.Component {
             <View style={{alignItems: 'center'}}>
               <Text style={styles.title}>نوع خدمت</Text>
             </View>
-            <ScrollView horizontal={true}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  width,
-                  justifyContent: 'center',
-                  flexWrap: 'wrap',
-                }}>
+
+            <View
+              style={{
+                flexDirection: 'row',
+                width,
+                justifyContent: 'center',
+                flexWrap: 'wrap',
+              }}>
+              <ScrollView
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}>
                 {services.map(item => {
                   let lol2;
                   if (this.state.temp) {
@@ -185,8 +191,9 @@ class ServiceReserve extends React.Component {
                     </TouchableOpacity>
                   );
                 })}
-              </View>
-            </ScrollView>
+              </ScrollView>
+            </View>
+
             <View
               style={{
                 flexDirection: 'row',
@@ -393,6 +400,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     marginTop: 10,
+    paddingBottom: 5,
   },
   txtBtn: {
     color: 'white',

@@ -8,6 +8,7 @@ import {
   TextInput,
   StyleSheet,
   Dimensions,
+  Linking,
 } from 'react-native';
 import StarRating from 'react-native-star-rating';
 
@@ -325,8 +326,10 @@ class SurveyService extends React.Component {
               }}
             />
           </View>
-          <TouchableOpacity style={styles.btn}>
-            <Text style={styles.txtBtn}>پرداخت آنلاین</Text>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => this.props.navigation.navigate('Home')}>
+            <Text style={styles.txtBtn}>ثبت نظر سنجی</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -351,10 +354,12 @@ SurveyService.navigationOptions = ({navigation}) => {
       fontFamily: 'IRANSansWeb',
     },
     headerRight: (
-      <Image
-        source={require('../../assets/images/call.png')}
-        style={{width: 30, height: 30, marginRight: 20}}
-      />
+      <TouchableOpacity onPress={() => Linking.openURL('tel:02144085717')}>
+        <Image
+          source={require('../../assets/images/call.png')}
+          style={{width: 30, height: 30, marginRight: 20}}
+        />
+      </TouchableOpacity>
     ),
   };
 };

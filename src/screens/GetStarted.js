@@ -72,7 +72,7 @@ class GteStarted extends React.Component {
             <TextInput
               style={styles.textinput}
               value={this.state.password}
-              onChangeText={pass => this.setState(pass)}
+              onChangeText={pass => this.setState({password: pass})}
               placeholder={'رمز عبور'}
               placeholderTextColor="#858585"
             />
@@ -91,7 +91,10 @@ class GteStarted extends React.Component {
         <TouchableOpacity
           style={{alignSelf: 'flex-start', paddingTop: 5, paddingLeft: 45}}
           onPress={() => this.props.navigation.navigate('ForgotPass')}>
-          <Text style={{color: '#3498DB', fontSize: 12}}>فراموشی رمز</Text>
+          <Text
+            style={{color: '#3498DB', fontSize: 12, fontFamily: 'IRANSansWeb'}}>
+            فراموشی رمز
+          </Text>
         </TouchableOpacity>
         <View style={{alignItems: 'center', paddingTop: 50}}>
           <TouchableOpacity

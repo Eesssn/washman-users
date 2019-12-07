@@ -65,7 +65,7 @@ class Setting extends React.Component {
         </View>
         <Image
           source={require('../../assets/images/washman.png')}
-          style={{width: 170, height: 170, marginTop: 10}}
+          style={{width: 170, height: 170}}
         />
       </View>
     );
