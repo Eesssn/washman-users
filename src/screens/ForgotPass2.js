@@ -7,7 +7,10 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   StyleSheet,
+  TouchableNativeFeedback,
+  Dimensions,
 } from 'react-native';
+import Axios from 'axios';
 
 class ForgotPass2 extends React.Component {
   static navigationOptions = {
@@ -27,12 +30,71 @@ class ForgotPass2 extends React.Component {
     },
   };
 
-  Edited = () => {
-    const {navigation} = this.props;
-    var lol = JSON.stringify(navigation.getParam('tel', 'pass'));
-    console.log(lol);
-    this.props.navigation.navigate('SignUp');
+  // Edited = () => {
+  //   const {navigation} = this.props;
+  //   var lol = JSON.stringify(navigation.getParam('tel', 'pass'));
+  //   console.log(lol);
+  //   this.props.navigation.navigate('SignUp');
+  // };
+
+  resetPass = () => {
+    var that = this;
+    const tell = this.props.navigation.getParam('tell');
+    Axios.post('reset_password', {
+      verify_code:
+        that.state.first.toString() +
+        that.state.secound.toString() +
+        that.state.third.toString() +
+        that.state.fourth.toString() +
+        that.state.fifth.toString(),
+      phone: tell,
+    })
+      .then(function(response) {
+        if (response.data.is_successful) {
+          that.props.navigation.navigate('GetStarted');
+        } else {
+          alert(response.data.message);
+        }
+      })
+      .catch(function(e) {
+        console.warn(e);
+      });
   };
+
+  resiveAgain = () => {
+    var that = this;
+    const tell = that.props.navigation.getParam('tell');
+    Axios.post('register/step_1', {
+      phone: tell,
+    })
+      .then(function(response) {
+        if (response.data.is_successful) {
+          that.setState({again: true});
+        } else {
+          alert(response.data.message);
+        }
+      })
+      .catch(function(e) {
+        console.warn(e);
+      });
+  };
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({again: false});
+    }, 20000);
+    this.counter = setInterval(() => {
+      if (this.state.counter == 0) {
+        clearInterval(this.counter);
+      } else {
+        this.setState(pervState => ({counter: pervState.counter - 1}));
+      }
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.counter);
+  }
 
   constructor() {
     super();
@@ -41,6 +103,9 @@ class ForgotPass2 extends React.Component {
       secound: '',
       third: '',
       fourth: '',
+      fifth: '',
+      again: true,
+      counter: 20,
     };
   }
 
@@ -64,6 +129,8 @@ class ForgotPass2 extends React.Component {
               paddingTop: 20,
               width: 250,
               justifyContent: 'space-between',
+              width: width,
+              paddingHorizontal: 20,
             }}>
             <TextInput
               ref="1"
@@ -117,11 +184,28 @@ class ForgotPass2 extends React.Component {
               keyboardType="numeric"
               maxLength={1}
               onChangeText={val => {
+                if (this.state.fourth.length == 0) {
+                  this.fourthInput.focus();
+                }
                 this.setState({fourth: val});
               }}
             />
+            <TextInput
+              ref={input => {
+                this.fourthInput = input;
+              }}
+              style={styles.textinput}
+              value={this.state.fifth}
+              keyboardType="numeric"
+              maxLength={1}
+              onChangeText={val => {
+                this.setState({fifth: val});
+              }}
+            />
           </View>
-          <TouchableOpacity style={{paddingTop: 10}} onPress={this.Edited}>
+          <TouchableOpacity
+            style={{paddingTop: 10}}
+            onPress={() => this.props.navigation.goBack()}>
             <Text style={{color: '#858585', fontSize: 12}}>ویرایش اطلاعات</Text>
           </TouchableOpacity>
           <View
@@ -131,18 +215,30 @@ class ForgotPass2 extends React.Component {
             }}>
             <TouchableOpacity
               style={styles.btnCode}
-              onPress={() => this.props.navigation.navigate('GetStarted')}>
+              onPress={() => this.resetPass()}>
               <Text style={styles.textBtnJoin}>تایید کل فعال سازی</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={{paddingTop: 10}}>
-              <Text style={{color: '#3498DB', fontSize: 12}}>دریافت مجدد</Text>
-            </TouchableOpacity>
+            {this.state.again ? (
+              <Text style={{color: '#3498DB', fontSize: 12, marginTop: 10}}>
+                {this.state.counter}
+              </Text>
+            ) : (
+              <TouchableOpacity
+                style={{paddingTop: 10}}
+                onPress={() => this.resiveAgain()}>
+                <Text style={{color: '#3498DB', fontSize: 12}}>
+                  دریافت مجدد
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </KeyboardAvoidingView>
     );
   }
 }
+
+const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   img: {

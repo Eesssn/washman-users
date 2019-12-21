@@ -7,8 +7,12 @@ import {
   TextInput,
   TouchableOpacity,
   Dimensions,
+  KeyboardAvoidingView,
+  ActivityIndicator,
 } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
+import Axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const {width, height} = Dimensions.get('window');
 
@@ -21,6 +25,7 @@ class GteStarted extends React.Component {
       showRealApp: false,
       tell: null,
       password: null,
+      loading: true,
     };
   }
 
@@ -39,76 +44,147 @@ class GteStarted extends React.Component {
       showRealApp: true,
     });
   };
+
+  login = () => {
+    console.log('1');
+    var that = this;
+    this.setState({loading: false});
+    // if (this.state.tell.length < 11) {
+    //   alert('شماره تلفن صحیح نیست');
+    // } else {
+    Axios.post('customer/login', {
+      phone: that.state.tell,
+      password: that.state.password,
+    })
+      .then(function(response) {
+        console.log('2');
+        if (response.data.is_successful) {
+          that.storeData(response.data.data);
+          that.setState({loading: true});
+          // console.log(response.data.data);
+          console.log('in log');
+        } else {
+          alert(response.data.message);
+          that.setState({loading: true});
+          console.log('3');
+        }
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
+    // }
+  };
+
+  storeData = async info => {
+    var that = this;
+    try {
+      await AsyncStorage.setItem('Token', info.remember_token);
+      await AsyncStorage.setItem('ID', info.id.toString());
+      that.props.navigation.navigate('Home');
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  getData = async () => {
+    try {
+      const token = await AsyncStorage.getItem('Token');
+      // console.log(token);
+      setTimeout(() => {
+        if (token !== null) {
+          this.props.navigation.navigate('Home');
+        } else if (token == null) {
+          this.props.navigation.navigate('GetStarted');
+        }
+      }, 100);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  componentDidMount() {
+    this.getData();
+  }
+
   render() {
     return this.state.showRealApp ? (
-      <View style={{alignItems: 'center', marginTop: 70}}>
-        <Image
-          style={styles.img}
-          source={require('../../assets/images/washman.png')}
-        />
-        <View style={{alignItems: 'center', marginTop: 20}}>
-          <View style={{position: 'relative'}}>
-            <TextInput
-              style={styles.textinput}
-              value={this.state.tell}
-              onChangeText={tell => this.setState({tell: tell})}
-              placeholder={'شماره موبایل'}
-              placeholderTextColor="#858585"
-              keyboardType="numeric"
-              maxLength={12}
-            />
-            <Image
-              source={require('../../assets/images/user.png')}
-              style={{
-                position: 'absolute',
-                top: 30,
-                right: 10,
-                width: 25,
-                height: 25,
-              }}
-            />
+      <KeyboardAvoidingView behavior="padding" enabled={true}>
+        <View style={{alignItems: 'center', marginTop: 70}}>
+          <Image
+            style={styles.img}
+            source={require('../../assets/images/washman.png')}
+          />
+          <View style={{alignItems: 'center', marginTop: 20}}>
+            <View style={{position: 'relative'}}>
+              <TextInput
+                style={styles.textinput}
+                value={this.state.tell}
+                onChangeText={tell => this.setState({tell: tell})}
+                placeholder={'شماره موبایل'}
+                placeholderTextColor="#858585"
+                keyboardType="numeric"
+                maxLength={12}
+              />
+              <Image
+                source={require('../../assets/images/user.png')}
+                style={{
+                  position: 'absolute',
+                  top: 30,
+                  right: 10,
+                  width: 25,
+                  height: 25,
+                }}
+              />
+            </View>
+            <View style={{position: 'relative'}}>
+              <TextInput
+                style={styles.textinput}
+                value={this.state.password}
+                onChangeText={pass => this.setState({password: pass})}
+                placeholder={'رمز عبور'}
+                secureTextEntry={true}
+                placeholderTextColor="#858585"
+              />
+              <Image
+                source={require('../../assets/images/locked.png')}
+                style={{
+                  position: 'absolute',
+                  top: 30,
+                  right: 10,
+                  width: 25,
+                  height: 25,
+                }}
+              />
+            </View>
           </View>
-          <View style={{position: 'relative'}}>
-            <TextInput
-              style={styles.textinput}
-              value={this.state.password}
-              onChangeText={pass => this.setState({password: pass})}
-              placeholder={'رمز عبور'}
-              placeholderTextColor="#858585"
-            />
-            <Image
-              source={require('../../assets/images/locked.png')}
+          <TouchableOpacity
+            style={{alignSelf: 'flex-start', paddingTop: 5, paddingLeft: 45}}
+            onPress={() => this.props.navigation.navigate('ForgotPass')}>
+            <Text
               style={{
-                position: 'absolute',
-                top: 30,
-                right: 10,
-                width: 25,
-                height: 25,
-              }}
-            />
+                color: '#3498DB',
+                fontSize: 12,
+                fontFamily: 'IRANSansWeb',
+              }}>
+              فراموشی رمز
+            </Text>
+          </TouchableOpacity>
+          <View style={{alignItems: 'center', paddingTop: 50}}>
+            {this.state.loading ? (
+              <TouchableOpacity style={styles.btn} onPress={() => this.login()}>
+                <Text style={styles.textBtn}>وارد شوید</Text>
+              </TouchableOpacity>
+            ) : (
+              <ActivityIndicator size="small" color="#3498DB" />
+            )}
+            <TouchableOpacity
+              style={{paddingTop: 15, fontFamily: 'IRANSansFaNum_Light'}}
+              onPress={() => this.props.navigation.navigate('SignUp')}>
+              <Text style={{fontSize: 16, color: '#272727'}}>ثبت نام کنید</Text>
+            </TouchableOpacity>
           </View>
         </View>
-        <TouchableOpacity
-          style={{alignSelf: 'flex-start', paddingTop: 5, paddingLeft: 45}}
-          onPress={() => this.props.navigation.navigate('ForgotPass')}>
-          <Text
-            style={{color: '#3498DB', fontSize: 12, fontFamily: 'IRANSansWeb'}}>
-            فراموشی رمز
-          </Text>
-        </TouchableOpacity>
-        <View style={{alignItems: 'center', paddingTop: 50}}>
-          <TouchableOpacity
-            style={styles.btn}
-            onPress={() => this.props.navigation.navigate('Home')}>
-            <Text style={styles.textBtn}>وارد شوید</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{paddingTop: 15, fontFamily: 'IRANSansFaNum_Light'}}
-            onPress={() => this.props.navigation.navigate('SignUp')}>
-            <Text style={{fontSize: 16, color: '#272727'}}>ثبت نام کنید</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      </KeyboardAvoidingView>
     ) : (
       <AppIntroSlider
         renderItem={this._renderItem}
@@ -191,6 +267,7 @@ const styles = StyleSheet.create({
     width: 350,
     marginTop: 20,
     fontFamily: 'IRANSansWeb',
+    textAlign: 'right',
   },
   btn: {
     backgroundColor: '#3498DB',
@@ -210,6 +287,12 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     borderRadius: 300,
+  },
+  activity: {
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

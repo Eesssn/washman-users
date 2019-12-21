@@ -11,6 +11,8 @@ import {
   Linking,
 } from 'react-native';
 import StarRating from 'react-native-star-rating';
+import AsyncStorage from '@react-native-community/async-storage';
+import Axios from 'axios';
 
 class SurveyService extends React.Component {
   onStarRatingPress(rating) {
@@ -26,6 +28,7 @@ class SurveyService extends React.Component {
       StarRating3: null,
       StarRating4: null,
       StarRating5: null,
+      comment: '',
     };
   }
 
@@ -308,8 +311,8 @@ class SurveyService extends React.Component {
               position: 'relative',
             }}>
             <TextInput
-              value={this.state.person}
-              onChangeText={val => this.setState({person: val})}
+              value={this.state.comment}
+              onChangeText={val => this.setState({comment: val})}
               style={styles.txtInput}
               placeholder="ثبت نظر"
               placeholderTextColor="#858585"

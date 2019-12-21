@@ -8,130 +8,226 @@ import {
   Dimensions,
 } from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
+import Axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
+import ImagePicker from 'react-native-image-crop-picker';
 
-const Profile = () => {
-  return (
-    <View styles={{flex: 1, backgroundColor: 'red', position: 'relative'}}>
-      <Image style={styles.img} source={require('../../assets/images/1.png')} />
-      <TouchableOpacity
-        style={{
-          position: 'absolute',
-          borderRadius: 15,
-          width: 25,
-          height: 25,
-          alignItems: 'center',
-          justifyContent: 'center',
-          top: 90,
-          left: 130,
-          backgroundColor: 'white',
-        }}>
+class Profile extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      balance: '',
+      token: null,
+      ID: null,
+      avatarSource: null,
+    };
+  }
+
+  componentDidMount() {
+    this.LoadData();
+  }
+
+  LoadData = async () => {
+    try {
+      const token = await AsyncStorage.getItem('Token');
+      const ID = await AsyncStorage.getItem('ID');
+      this.setState({
+        token,
+        ID,
+      });
+    } catch (e) {
+      console.warn(e);
+    }
+  };
+
+  balance = () => {
+    var that = this;
+    Axios.post('customer/balance', {
+      customer_id: that.state.ID,
+      token: that.state.token,
+    })
+      .then(function(response) {
+        if (response.data.is_successful) {
+          that.setState({balance: response.data});
+        } else {
+          alert(response.data.message);
+        }
+      })
+      .catch(function(e) {
+        console.warn(e);
+      });
+  };
+
+  avatar = async () => {
+    var that = this;
+    var bodyFormData = new FormData();
+    bodyFormData.append('avatar', {
+      uri: this.state.avatarSource,
+      name: 'mamad.jpg',
+      type: 'image/jpeg',
+    });
+    bodyFormData.append('token', that.state.token);
+    bodyFormData.append('id', that.state.ID);
+
+    Axios({
+      method: 'post',
+      url: 'http://alireza-shahsavari.ir/washman/public/api/customer/avatar',
+      data: bodyFormData,
+      headers: {'Content-Type': 'multipart/form-data'},
+    })
+      .then(function(response) {
+        if (response.data.is_successful) {
+          that.setState({avatarSource: response.data.data});
+        } else {
+          alert(response.data.message);
+        }
+        console.log(response);
+      })
+      .catch(function(e) {
+        console.warn(e);
+      });
+  };
+
+  showImage = () => {
+    ImagePicker.openPicker({
+      // includeBase64: true,
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      this.setState({avatarSource: image.path});
+      setTimeout(() => {
+        this.avatar();
+      }, 1000);
+    });
+  };
+
+  render() {
+    return (
+      <View styles={{flex: 1, backgroundColor: 'red', position: 'relative'}}>
         <Image
-          source={require('../../assets/images/plus.png')}
-          style={{width: 20, height: 20}}
+          style={styles.img}
+          source={
+            this.state.avatarSource
+              ? {uri: this.state.avatarSource}
+              : require('../../assets/images/plus.png')
+          }
         />
-      </TouchableOpacity>
-
-      <View
-        style={{
-          flexDirection: 'row-reverse',
-          width: 300,
-          alignItems: 'center',
-          bottom: 60,
-          left: 25,
-        }}>
-        <Text
+        <TouchableOpacity
           style={{
-            fontSize: 16,
-            fontFamily: 'IRANSansWeb',
-            color: '#484848',
-          }}>
-          سارا احمدی
-        </Text>
-        <Image
-          source={require('../../assets/images/bookmark.png')}
-          style={{marginRight: 20, width: 20, height: 20}}
-        />
-      </View>
+            position: 'absolute',
+            borderRadius: 15,
+            width: 25,
+            height: 25,
+            alignItems: 'center',
+            justifyContent: 'center',
+            top: 90,
+            left: 130,
+            backgroundColor: 'white',
+          }}
+          onPress={() => this.showImage()}>
+          <Image
+            source={require('../../assets/images/plus.png')}
+            style={{width: 20, height: 20}}
+          />
+        </TouchableOpacity>
 
-      <View>
-        <View style={{position: 'relative'}}>
-          <View
+        <View
+          style={{
+            flexDirection: 'row-reverse',
+            width: 300,
+            alignItems: 'center',
+            bottom: 60,
+            left: 25,
+          }}>
+          <Text
+            style={{
+              fontSize: 16,
+              fontFamily: 'IRANSansWeb',
+              color: '#484848',
+            }}>
+            سارا احمدی
+          </Text>
+          <Image
+            source={require('../../assets/images/bookmark.png')}
+            style={{marginRight: 20, width: 20, height: 20}}
+          />
+        </View>
+
+        <View>
+          <View style={{position: 'relative'}}>
+            <View
+              style={[
+                styles.view,
+                {borderBottomWidth: 1, borderBottomColor: '#C3C3C3'},
+              ]}>
+              <Text style={styles.txt}>افزایش اعتبار کیف پول</Text>
+              <TouchableOpacity style={styles.viewP}>
+                <Text style={styles.txtP}>
+                  اعتبار {this.state.balance} تومان
+                </Text>
+                <TouchableOpacity
+                  style={{
+                    borderRadius: 10,
+                    width: 15,
+                    height: 15,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginRight: 10,
+                  }}>
+                  <Image
+                    source={require('../../assets/images/plus.png')}
+                    style={{width: 20, height: 20}}
+                  />
+                </TouchableOpacity>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <TouchableOpacity
             style={[
               styles.view,
               {borderBottomWidth: 1, borderBottomColor: '#C3C3C3'},
             ]}>
-            <Text style={styles.txt}>افزایش اعتبار کیف پول</Text>
-            <TouchableOpacity style={styles.viewP}>
-              <Text style={styles.txtP}>اعتبار 0 تومان</Text>
-              <TouchableOpacity
-                style={{
-                  borderRadius: 10,
-                  width: 15,
-                  height: 15,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginRight: 10,
-                }}>
-                <Image
-                  source={require('../../assets/images/plus.png')}
-                  style={{width: 20, height: 20}}
-                />
-              </TouchableOpacity>
-            </TouchableOpacity>
-          </View>
+            <Text style={styles.txt}>سفارش های من</Text>
+            <Entypo name="chevron-small-left" size={35} style={styles.icon} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.view,
+              {borderBottomWidth: 1, borderBottomColor: '#C3C3C3'},
+            ]}>
+            <Text style={styles.txt}>آدرس های من</Text>
+            <Entypo name="chevron-small-left" size={35} style={styles.icon} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.view,
+              {borderBottomWidth: 1, borderBottomColor: '#C3C3C3'},
+            ]}>
+            <Text style={styles.txt}>نظرات من</Text>
+            <Entypo name="chevron-small-left" size={35} style={styles.icon} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.view,
+              {borderBottomWidth: 1, borderBottomColor: '#C3C3C3'},
+            ]}>
+            <Text style={styles.txt}>معرفی به دوستان</Text>
+            <Entypo name="chevron-small-left" size={35} style={styles.icon} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.view,
+              {borderBottomWidth: 1, borderBottomColor: '#C3C3C3'},
+            ]}>
+            <Text style={styles.txt}>خیریه</Text>
+            <Entypo name="chevron-small-left" size={35} style={styles.icon} />
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={[
-            styles.view,
-            {borderBottomWidth: 1, borderBottomColor: '#C3C3C3'},
-          ]}>
-          <Text style={styles.txt}>سفارش های من</Text>
-          <Entypo name="chevron-small-left" size={35} style={styles.icon} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.view,
-            {borderBottomWidth: 1, borderBottomColor: '#C3C3C3'},
-          ]}>
-          <Text style={styles.txt}>آدرس های من</Text>
-          <Entypo name="chevron-small-left" size={35} style={styles.icon} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.view,
-            {borderBottomWidth: 1, borderBottomColor: '#C3C3C3'},
-          ]}>
-          <Text style={styles.txt}>نظرات من</Text>
-          <Entypo name="chevron-small-left" size={35} style={styles.icon} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.view,
-            {borderBottomWidth: 1, borderBottomColor: '#C3C3C3'},
-          ]}>
-          <Text style={styles.txt}>معرفی به دوستان</Text>
-          <Entypo name="chevron-small-left" size={35} style={styles.icon} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.view,
-            {borderBottomWidth: 1, borderBottomColor: '#C3C3C3'},
-          ]}>
-          <Text style={styles.txt}>خیریه</Text>
-          <Entypo name="chevron-small-left" size={35} style={styles.icon} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.view,
-            {borderBottomWidth: 1, borderBottomColor: '#C3C3C3'},
-          ]}>
-          <Text style={styles.txtLuck}>قرعه کشی</Text>
-          <Entypo name="chevron-small-left" size={35} style={styles.icon} />
-        </TouchableOpacity>
       </View>
-    </View>
-  );
-};
+    );
+  }
+}
 
 Profile.navigationOptions = ({navigation}) => {
   return {
@@ -208,7 +304,7 @@ const styles = StyleSheet.create({
   img: {
     width: 110,
     height: 110,
-    borderRadius: 40,
+    borderRadius: 50,
     marginLeft: 50,
     marginTop: 10,
   },

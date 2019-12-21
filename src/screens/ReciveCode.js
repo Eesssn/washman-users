@@ -7,9 +7,12 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   StyleSheet,
+  Dimensions,
 } from 'react-native';
+import Axios from 'axios';
 
 class ReciveCode extends React.Component {
+  counter = null;
   static navigationOptions = {
     headerStyle: {
       backgroundColor: '#3498DB',
@@ -20,19 +23,100 @@ class ReciveCode extends React.Component {
     },
     headerTintColor: 'white',
     headerLeft: null,
-    title: 'فراموشی رمز',
+    title: 'کد فعالسازی',
     headerTitleStyle: {
       fontWeight: 'bold',
       fontFamily: 'IRANSansFaNum_Light',
     },
   };
 
-  Edited = () => {
-    const {navigation} = this.props;
-    var lol = JSON.stringify(navigation.getParam('tel', 'pass'));
-    console.log(lol);
-    this.props.navigation.navigate('SignUp');
+  // Edited = () => {
+  //   const {navigation} = this.props;
+  //   var lol = JSON.stringify(navigation.getParam('tel', 'pass'));
+  //   console.log(lol);
+  //   this.props.navigation.navigate('SignUp');
+  // };
+
+  resiveCode = () => {
+    var that = this;
+    const tell = that.props.navigation.getParam('tell');
+    const password = that.props.navigation.getParam('password');
+
+    Axios.post('customer/verify', {
+      verify_code:
+        that.state.first.toString() +
+        that.state.secound.toString() +
+        that.state.third.toString() +
+        that.state.fourth.toString() +
+        that.state.fifth.toString(),
+      phone: tell,
+      // password: password,
+    })
+      .then(function(response) {
+        if (response.data.is_successful) {
+          that.props.navigation.navigate('ConfrimCode', {
+            tell: tell,
+            password: password,
+            verify_code:
+              that.state.first.toString() +
+              that.state.secound.toString() +
+              that.state.third.toString() +
+              that.state.fourth.toString() +
+              that.state.fifth.toString(),
+          });
+        } else {
+          alert(response.data.message);
+        }
+      })
+      .catch(function(e) {
+        console.warn(e);
+      });
   };
+
+  resiveAgain = () => {
+    console.log('1');
+    var that = this;
+    const tell = that.props.navigation.getParam('tell');
+    Axios.post('customer/register/step_1', {
+      phone: tell,
+    })
+      .then(function(response) {
+        console.log('2');
+        if (response.data.is_successful) {
+          console.log('3');
+          that.setState({counter: 1, again: true});
+          that.timeShow();
+          // this.setState({again: false});
+        } else {
+          alert(response.data.message);
+        }
+      })
+      .catch(function(e) {
+        console.warn(e);
+      });
+  };
+
+  timeShow = () => {
+    setTimeout(() => {
+      this.setState({again: false});
+    }, 20000);
+    this.counter = setInterval(() => {
+      if (this.state.counter >= 20) {
+        clearInterval(this.counter);
+        this.setState({counter: 1});
+      } else {
+        this.setState(pervState => ({counter: pervState.counter + 1}));
+      }
+    }, 1000);
+  };
+
+  componentDidMount() {
+    this.timeShow();
+  }
+
+  // componentWillUnmount() {
+  //   clearInterval(this.counter);
+  // }
 
   constructor() {
     super();
@@ -41,6 +125,9 @@ class ReciveCode extends React.Component {
       secound: '',
       third: '',
       fourth: '',
+      fifth: '',
+      again: true,
+      counter: 1,
     };
   }
 
@@ -62,7 +149,8 @@ class ReciveCode extends React.Component {
             style={{
               flexDirection: 'row',
               paddingTop: 20,
-              width: 250,
+              width: width,
+              paddingHorizontal: 20,
               justifyContent: 'space-between',
             }}>
             <TextInput
@@ -117,11 +205,28 @@ class ReciveCode extends React.Component {
               keyboardType="numeric"
               maxLength={1}
               onChangeText={val => {
+                if (this.state.fourth.length == 0) {
+                  this.fourthInput.focus();
+                }
                 this.setState({fourth: val});
               }}
             />
+            <TextInput
+              ref={input => {
+                this.fourthInput = input;
+              }}
+              style={styles.textinput}
+              value={this.state.fifth}
+              keyboardType="numeric"
+              maxLength={1}
+              onChangeText={val => {
+                this.setState({fifth: val});
+              }}
+            />
           </View>
-          <TouchableOpacity style={{paddingTop: 10}} onPress={this.Edited}>
+          <TouchableOpacity
+            style={{paddingTop: 10}}
+            onPress={() => this.props.navigation.goBack()}>
             <Text style={{color: '#858585', fontSize: 12}}>ویرایش اطلاعات</Text>
           </TouchableOpacity>
           <View
@@ -131,18 +236,30 @@ class ReciveCode extends React.Component {
             }}>
             <TouchableOpacity
               style={styles.btnCode}
-              onPress={() => this.props.navigation.navigate('ConfrimCode')}>
+              onPress={() => this.resiveCode()}>
               <Text style={styles.textBtnJoin}>تایید کل فعال سازی</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={{paddingTop: 10}}>
-              <Text style={{color: '#3498DB', fontSize: 12}}>دریافت مجدد</Text>
-            </TouchableOpacity>
+            {this.state.again ? (
+              <Text style={{color: '#3498DB', fontSize: 12, marginTop: 10}}>
+                {this.state.counter}
+              </Text>
+            ) : (
+              <TouchableOpacity
+                style={{paddingTop: 10}}
+                onPress={() => this.resiveAgain()}>
+                <Text style={{color: '#3498DB', fontSize: 12}}>
+                  دریافت مجدد
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </KeyboardAvoidingView>
     );
   }
 }
+
+const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   img: {

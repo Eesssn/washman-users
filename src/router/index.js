@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet} from 'react-native';
+import {Image, StyleSheet, AsyncStorage} from 'react-native';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
@@ -9,8 +9,19 @@ import StackSupport from '../stackNavigation/StackSupport';
 import StackBlog from '../stackNavigation/StackBlog';
 import StackReserveWash from '../stackNavigation/StackReserveWash';
 import StackProfile from '../stackNavigation/StackProfile';
-import StackBottom from '../stackBottomTab';
 
+// const Lol = async () => {
+//   const token = await AsyncStorage.getItem('Token');
+//   if (token !== null || token !== undefined) {
+//     get: createStackNavigator(Screens, {
+//       initialRouteName: 'Home',
+//     });
+//   } else {
+//     get: createStackNavigator(Screens, {
+//       initialRouteName: 'GetStarted',
+//     });
+//   }
+// };
 const NavigatorTab = createSwitchNavigator({
   get: createStackNavigator(Screens, {
     initialRouteName: 'GetStarted',

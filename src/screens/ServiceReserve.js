@@ -10,6 +10,8 @@ import {
   Linking,
 } from 'react-native';
 import Datepicker, {getFormatedDate} from 'react-native-modern-datepicker';
+import Axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class ServiceReserve extends React.Component {
   constructor(props) {
@@ -21,7 +23,33 @@ class ServiceReserve extends React.Component {
       temp: [],
       temp2: [],
       tempCar: [],
+      service: [],
     };
+  }
+
+  getService = async () => {
+    var that = this;
+    const token = await AsyncStorage.getItem('Token');
+    var id = await AsyncStorage.getItem('ID');
+    Axios.post('services', {
+      customer_id: id,
+      token: token,
+    })
+      .then(function(response) {
+        if (response.data.is_successful) {
+          that.setState({service: response.data.data});
+          console.log(response.data.data);
+        } else {
+          alert(response.data.message);
+        }
+      })
+      .catch(function(e) {
+        console.warn(e);
+      });
+  };
+
+  componentDidMount() {
+    this.getService();
   }
 
   selectedView = () => {
@@ -29,7 +57,7 @@ class ServiceReserve extends React.Component {
       case 'date':
         return (
           <>
-            <Datepicker
+            {/* <Datepicker
               isGregorian={false}
               mode="time"
               minuteInterval={3}
@@ -56,7 +84,7 @@ class ServiceReserve extends React.Component {
               onTimeChange={selectedTime2 => {
                 this.setState({time2: selectedTime2});
               }}
-            />
+            /> */}
           </>
         );
         break;
@@ -155,7 +183,7 @@ class ServiceReserve extends React.Component {
               <ScrollView
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}>
-                {services.map(item => {
+                {this.state.service.map(item => {
                   let lol2;
                   if (this.state.temp) {
                     lol2 = this.state.temp.filter(hehe => hehe == item.id);
@@ -201,7 +229,7 @@ class ServiceReserve extends React.Component {
                 justifyContent: 'center',
                 flexWrap: 'wrap',
               }}>
-              {tempService.map(item => {
+              {this.state.service.map(item => {
                 let indexer = this.state.temp2.length - 1;
                 let key = this.state.temp2[indexer];
                 let lol3 = this.state.temp2.filter(hehe => hehe == item.id);

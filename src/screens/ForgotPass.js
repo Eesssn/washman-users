@@ -9,6 +9,8 @@ import {
   StyleSheet,
 } from 'react-native';
 
+import Axios from 'axios';
+
 class ForgotPass extends React.Component {
   static navigationOptions = {
     headerStyle: {
@@ -34,6 +36,25 @@ class ForgotPass extends React.Component {
     };
   }
 
+  forgotPass = () => {
+    var that = this;
+    Axios.post('forgot_password', {
+      phone: that.state.tell,
+    })
+      .then(response => {
+        if (response.data.is_successful) {
+          that.props.navigation.navigate('ForgotPass2', {
+            tell: that.state.tell,
+          });
+        } else {
+          alert(response.data.message);
+        }
+      })
+      .catch(e => {
+        console.warn(e);
+      });
+  };
+
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" enabled={true}>
@@ -57,6 +78,7 @@ class ForgotPass extends React.Component {
                 placeholder={'شماره موبایل'}
                 placeholderTextColor="#858585"
                 keyboardType="numeric"
+                maxLength={11}
               />
               <Image
                 source={require('../../assets/images/user.png')}
@@ -73,7 +95,7 @@ class ForgotPass extends React.Component {
           <View style={{paddingTop: 30}}>
             <TouchableOpacity
               style={styles.btn}
-              onPress={() => this.props.navigation.navigate('ForgotPass2')}>
+              onPress={() => this.forgotPass()}>
               <Text style={styles.textBtn}>دریافت کد فعالسازی</Text>
             </TouchableOpacity>
           </View>

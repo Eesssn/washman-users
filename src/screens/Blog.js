@@ -9,8 +9,86 @@ import {
   StyleSheet,
 } from 'react-native';
 import StarRating from 'react-native-star-rating';
+import Axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
+import moment from 'jalali-moment';
 
 class Blog extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      discription: 'lastSubject',
+      underLine: null,
+      rateChanged: 2,
+      blogs: [],
+      like: [],
+      token: null,
+      ID: null,
+    };
+  }
+
+  LoadData = async () => {
+    try {
+      const token = await AsyncStorage.getItem('Token');
+      const ID = await AsyncStorage.getItem('ID');
+      this.setState({
+        token,
+        ID,
+      });
+    } catch (e) {
+      console.warn(e);
+    }
+  };
+
+  getBlog = () => {
+    try {
+      var that = this;
+      Axios.post('blogs', {
+        customer_id: that.state.ID,
+        token: that.state.token,
+      })
+        .then(function(response) {
+          if (response.data.is_successful) {
+            that.setState({blogs: response.data.data});
+            console.log(that.state.blogs);
+            console.log(response.data.data);
+          } else {
+            alert(response.data.message);
+          }
+        })
+        .catch(function(e) {
+          console.warn(e);
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  like = () => {
+    var that = this;
+    const idBlog = that.props.navigation.getParam('id');
+    Axios.post('blog/like', {
+      customer_id: that.state.ID,
+      token: that.state.token,
+      blog_id: idBlog,
+    })
+      .then(function(response) {
+        if (response.data.is_successful) {
+          that.setState({like: response.data.data});
+        } else {
+          alert(response.data.message);
+        }
+      })
+      .catch(function(e) {
+        Console.warn(e);
+      });
+  };
+
+  componentDidMount() {
+    this.getBlog();
+    this.LoadData();
+  }
+
   onStarRatingPress(rating) {
     this.setState({
       StarRating: rating,
@@ -35,16 +113,20 @@ class Blog extends React.Component {
       case 'lastSubject':
         return (
           <View>
-            {Last.map((lst, i) => {
+            {this.state.blogs.map((lst, i) => {
+              var date = lst.created_at;
+              var m = moment(date);
               return (
                 <TouchableOpacity
                   key={i}
                   style={{backgroundColor: '#FCFAFA'}}
                   onPress={() =>
                     this.props.navigation.navigate('TextBlog', {
-                      image: lst.image,
+                      id: lst.id,
+                      img: lst.image_url,
                       title: lst.title,
-                      text: lst.text,
+                      txt: lst.body,
+                      bookmark: lst.is_bookmarked,
                     })
                   }>
                   <Image source={lst.image} style={styles.imgBlog} />
@@ -63,14 +145,16 @@ class Blog extends React.Component {
                         borderBottomWidth: 1,
                         borderBottomColor: 'rgba(112, 112, 112, 0.5)',
                       }}>
-                      <Text style={styles.txtDate}>{lst.date}</Text>
-                      <Text style={styles.txtLike}>{lst.like}</Text>
+                      <Text style={styles.txtDate}>
+                        {m.locale('fa').format('DD/MMMM')}
+                      </Text>
+                      <Text style={styles.txtLike}>{this.state.like}</Text>
                       <TouchableOpacity>
                         <Image
                           source={require('../../assets/images/heart.png')}
                           style={{
-                            width: 15,
-                            height: 15,
+                            width: width / 25,
+                            height: 14,
                             marginRight: 3,
                             marginBottom: 20,
                           }}
@@ -176,14 +260,6 @@ class Blog extends React.Component {
     }
   };
 
-  constructor() {
-    super();
-    this.state = {
-      discription: 'lastSubject',
-      underLine: null,
-      rateChanged: 2,
-    };
-  }
   render() {
     return (
       <View style={{flex: 1, backgroundColor: '#FCFAFA'}}>
@@ -369,6 +445,7 @@ const styles = StyleSheet.create({
     color: '#858585',
     fontFamily: 'IRANSansWeb',
     paddingTop: 10,
+    textAlign: 'right',
   },
 
   icon: {

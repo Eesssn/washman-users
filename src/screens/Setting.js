@@ -8,8 +8,16 @@ import {
   StyleSheet,
 } from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class Setting extends React.Component {
+  constructor() {
+    super();
+  }
+  logOut = () => {
+    AsyncStorage.clear();
+    this.props.navigation.navigate('GetStarted');
+  };
   render() {
     return (
       <View style={{flex: 1, backgroundColor: '#FCFAFA', alignItems: 'center'}}>
@@ -58,7 +66,8 @@ class Setting extends React.Component {
             style={[
               styles.view,
               {borderBottomWidth: 1, borderBottomColor: '#C3C3C3'},
-            ]}>
+            ]}
+            onPress={() => this.logOut()}>
             <Text style={styles.txtExit}>خروج از برنامه</Text>
             <Entypo name="chevron-small-left" size={35} style={styles.icon} />
           </TouchableOpacity>

@@ -9,8 +9,42 @@ import {
   ScrollView,
   Dimensions,
 } from 'react-native';
+import Axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class Home extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      index: [],
+    };
+  }
+
+  index = async () => {
+    var that = this;
+    const id = await AsyncStorage.getItem('ID');
+    const token = await AsyncStorage.getItem('Token');
+    Axios.post('customer/index', {
+      customer_id: id,
+      token: token,
+    })
+      .then(function(response) {
+        if (response.data.is_successful) {
+          that.setState({index: response.data.data});
+          console.log(that.state.index);
+        } else {
+          alert(response.data.message);
+        }
+      })
+      .catch(function(e) {
+        Console.warn(e);
+      });
+  };
+
+  componentDidMount() {
+    this.index();
+  }
+
   render() {
     return (
       <ScrollView>
@@ -30,6 +64,11 @@ class Home extends React.Component {
                 );
               }}
             />
+            {/* <ScrollView>
+              {this.state.index.sliders.map(item => {
+                return <Image source={item.image} style={styles.img} />;
+              })}
+            </ScrollView> */}
           </View>
           <View style={{marginRight: 10}}>
             <Text style={styles.title}>انواع خدمات</Text>
@@ -70,6 +109,36 @@ class Home extends React.Component {
                 </TouchableOpacity>
               );
             })}
+
+            {/* {this.state.index.services.map(item => {
+              return (
+                <TouchableOpacity
+                  key={item.id}
+                  style={styles.btn}
+                  onPress={() =>
+                    this.props.navigation.navigate('Services', {
+                      image: item.image,
+                      title: item.title,
+                      VIP: item.VIP,
+                      CIP: item.CIP,
+                      text: item.text,
+                    })
+                  }>
+                  <Image
+                    source={item.image}
+                    style={{width: 40, height: 40, marginBottom: 10}}
+                  />
+                  <Text style={styles.titleService}>{item.title}</Text>
+                  <Text style={{color: '#FFC200'}}>
+                    {item.VIP === null && item.CIP === null
+                      ? null
+                      : item.CIP === true
+                      ? 'CIP'
+                      : 'VIP'}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })} */}
           </View>
           <View style={{marginRight: 10}}>
             <Text style={styles.title}>بلاگ</Text>

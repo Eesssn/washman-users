@@ -10,26 +10,77 @@ import {
 } from 'react-native';
 import bookmark from '../../assets/images/bookmark.png';
 import bookmarkTag from '../../assets/images/bookmark-tag.png';
+import Axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class TextBlog extends React.Component {
   static navigationOptions = {
     header: null,
   };
-  showImage = () => {
-    var img = this.state.showBookmark ? bookmark : bookmarkTag;
-    return <Image source={img} style={styles.icon} />;
-  };
+
   constructor() {
     super();
     this.state = {
       showBookmark: true,
+      bookmark: [],
+      blog: [],
+      like: [],
     };
   }
+
+  showBlog = async () => {
+    var that = this;
+    const token = await AsyncStorage.getItem('Token');
+    const id = await AsyncStorage.getItem('ID');
+    const idBlog = that.props.navigation.getParam('id');
+    Axios.post('blog', {
+      customer_id: id,
+      token: token,
+      id: idBlog,
+    })
+      .then(function(response) {
+        if (response.data.is_successful) {
+          that.setState({blog: response.data.data});
+        } else {
+          alert(response.data.message);
+        }
+      })
+      .catch(function(e) {
+        Console.warn(e);
+      });
+  };
+
+  like = async () => {
+    var that = this;
+    const token = await AsyncStorage.getItem('Token');
+    const id = await AsyncStorage.getItem('ID');
+    const idBlog = that.props.navigation.getParam('id');
+    Axios.post('blog/like', {
+      customer_id: id,
+      token: token,
+      blog_id: idBlog,
+    })
+      .then(function(response) {
+        if (response.data.is_successful) {
+          that.setState({like: response.data.data});
+        } else {
+          alert(response.data.message);
+        }
+      })
+      .catch(function(e) {
+        Console.warn(e);
+      });
+  };
+
+  componentDidMount() {
+    this.showBlog();
+  }
+
   render() {
     return (
       <ScrollView style={{backgroundColor: '#FCFAFA'}}>
         <Image
-          source={this.props.navigation.state.params.image}
+          source={this.props.navigation.getParam('img')}
           style={styles.img}
         />
         <View
@@ -43,14 +94,15 @@ class TextBlog extends React.Component {
             backgroundColor: 'white',
           }}>
           <Text style={styles.title}>
-            {this.props.navigation.state.params.title}
+            {this.props.navigation.getParam('title')}
           </Text>
           <View style={{flexDirection: 'row-reverse', paddingRight: 20}}>
-            <TouchableOpacity
-              onPress={() =>
-                this.setState({showBookmark: !this.state.showBookmark})
-              }>
-              {this.showImage()}
+            <TouchableOpacity onPress={() => this.setState({bookmark: 0})}>
+              {this.state.blog.is_bookmarked === 1 ? (
+                <Image source={bookmarkTag} style={styles.icon} />
+              ) : (
+                <Image source={bookmark} style={styles.icon} />
+              )}
             </TouchableOpacity>
           </View>
         </View>
@@ -60,7 +112,7 @@ class TextBlog extends React.Component {
             paddingVertical: 10,
           }}>
           <Text style={styles.txt}>
-            {this.props.navigation.state.params.text}
+            {this.props.navigation.getParam('txt')}
           </Text>
         </View>
         <View
@@ -79,7 +131,7 @@ class TextBlog extends React.Component {
             }}>
             مطلب بنظرتون مفید بود ؟
           </Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => this.like()}>
             <Image
               source={require('../../assets/images/heart2.png')}
               style={{width: 20, height: 20, top: 5}}

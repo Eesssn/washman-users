@@ -9,6 +9,7 @@ import {
   TouchableWithoutFeedback,
   StyleSheet,
 } from 'react-native';
+import Axios from 'axios';
 
 class SignUp extends React.Component {
   static navigationOptions = {
@@ -50,6 +51,38 @@ class SignUp extends React.Component {
       : this.setState({TextChanger: styles.txtP});
   };
 
+  register = () => {
+    var that = this;
+    if (this.state.password && this.state.cPassword) {
+      if (this.state.password === this.state.cPassword) {
+        if (this.state.password.length >= 6) {
+          Axios.post('customer/register/step_1', {
+            phone: that.state.tell,
+          })
+            .then(function(response) {
+              if (response.data.is_successful) {
+                that.props.navigation.navigate('ReciveCode', {
+                  tell: that.state.tell,
+                  password: that.state.password,
+                });
+              } else {
+                alert(response.data.message);
+              }
+            })
+            .catch(function(e) {
+              console.warn(e);
+            });
+        } else {
+          alert('تعداد کاراکتر کمتر از 6 می باشد');
+        }
+      } else {
+        alert('پسورد برابر نیست');
+      }
+    } else {
+      alert('همه فیلد ها را پر کنید');
+    }
+  };
+
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" enabled={true}>
@@ -78,7 +111,7 @@ class SignUp extends React.Component {
                   }
                 }}
                 keyboardType="numeric"
-                maxLength={12}
+                maxLength={11}
               />
               <Image
                 source={require('../../assets/images/user.png')}
@@ -146,7 +179,9 @@ class SignUp extends React.Component {
               paddingTop: 30,
               alignItems: 'center',
             }}>
-            <TouchableOpacity style={styles.btn} onPress={this.ReciveCode}>
+            <TouchableOpacity
+              style={styles.btn}
+              onPress={() => this.register()}>
               <Text style={styles.textBtn}>دریافت کد فعال سازی</Text>
             </TouchableOpacity>
           </View>

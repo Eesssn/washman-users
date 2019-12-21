@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   StyleSheet,
 } from 'react-native';
+import Axios from 'axios';
 
 class ConfrimCode extends React.Component {
   static navigationOptions = {
@@ -34,6 +35,33 @@ class ConfrimCode extends React.Component {
       code: '',
     };
   }
+
+  signUp = () => {
+    var that = this;
+    const password = that.props.navigation.getParam('password');
+    const tell = that.props.navigation.getParam('tell');
+    const verify_code = that.props.navigation.getParam('verify_code');
+    if (this.state.name) {
+      Axios.post('customer/register/step_2', {
+        name: that.state.name,
+        password: password,
+        phone: tell,
+        verify_code: verify_code,
+      })
+        .then(function(response) {
+          if (response.data.is_successful) {
+            that.props.navigation.navigate('Home');
+          } else {
+            alert(response.data.message);
+          }
+        })
+        .catch(function(e) {
+          console.warn(e);
+        });
+    } else {
+      alert('نام خود را وارد کنید');
+    }
+  };
 
   render() {
     return (
@@ -92,7 +120,7 @@ class ConfrimCode extends React.Component {
             }}>
             <TouchableOpacity
               style={styles.btnCode}
-              onPress={() => this.props.navigation.navigate('Home')}>
+              onPress={() => this.signUp()}>
               <Text style={styles.textBtn}>ثبت نام</Text>
             </TouchableOpacity>
           </View>
